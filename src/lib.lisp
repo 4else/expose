@@ -17,15 +17,24 @@
   #+clisp (coerce (EXT:ARGV) 'list) 
   #+sbcl  (cdr sb-ext:*posix-argv*))
 
+(defun trim (x) 
+  (string-trim '(#\Space #\Newline #\Tab) x))
+
+(defun reads (x &optional stringp)
+  (let ((x (trim x)))
+    (cond (stringp x)
+          ((equal "?" x) #\?)
+          (t (or (ignore-errors (read-from-string x)) x)))))
+
 (defun opt (key help value) 
-  (labels ((cli (key value &optional (com (copy-tree (args)))) 
+  (labels ((cli (&optional (com (copy-tree (args))))
                 (aif (pop com)
-                  (if (eql key (ignore-errors (read-from-string it)))
+                  (if (eql key (reads it))
                     (cond ((equal value "true") nil)
                           ((equal value "false") t)
-                          (t (ignore-errors (read-from-string (pop com)))))
-                    (cli key value com)))))
-    (cons key (%make-option :key key :help help :value (or (cli key value) value)))))
+                          (t (and com (reads (pop com)))))
+                    (cli com)))))
+    (cons key (%make-option :key key :help help :value (or (cli) value)))))
 
 (defun %show-option (x str depth)
   (declare (ignore depth))
@@ -47,33 +56,22 @@ OPTIONS:"
         (opt :file "asda" "asdas")
         (opt :q "asda" 1000)))
 
-
 ;;;; ---------------------------------------------------------------------------
 (defun make () (load "lib"))
-
-(defun trim (x) 
-  (string-trim '(#\Space #\Newline #\Tab) x))
 
 (defun subseqs (s &optional (sep #\,) (n 0))
   (aif (position sep s :start n)
     (cons (subseq s n it) (subseqs s sep (1+ it)))
     (list (subseq s n))))
 
-(defun cell(x)
-  (if (equal "?" x) 
-    #\? 
-    (let ((y (read-from-string x)))
-      (if (numberp y) y x))))
-
 (defun csv (file &optional (fn #'print))
   (with-open-file (str file)
     (loop (funcall fn 
-       (mapcar #'trim 
+       (mapcar #'(lambda (x) (reads x t)) 
          (subseqs (or (read-line str nil) (return-from csv))))))))
 
 (defmacro with-csv ((lst file &optional out) &body body)
   `(progn (csv ,file #'(lambda (,lst) ,@body)) ,out))
-
 
 ;;;; ---------------------------------------------------------------------------
 (defun _while(&aux (x '(1 2 3)))
@@ -84,7 +82,7 @@ OPTIONS:"
   (let (head)
     (with-csv (line "../data/auto93.csv") 
       (if head
-        (format t "~s~%" (mapcar #'cell line))
+        (format t "~s~%" (mapcar #'reads line))
         (setf head line)))))
 
 (mapc #'print (mapcar #'cdr (help)))
