@@ -1,4 +1,20 @@
 ; vim: ts=2 et sw=2 et:
+(defstruct our
+  (help "
+sbcl --script lib.lisp [OPTIONS
+(c) 2022, Tim Menzies, MIT license
+
+Lets have some fun.")
+  (format "  :~5a  ~30a  = ~a")
+  (options 
+    `((:b "asda" 23)
+      (:p "asda" 2)
+      (:k "asda" 41)
+      (:file "asda" "asdas")
+      (:q "asda" 1000))))
+
+(defvar *config* (make-our))
+
 ;;;; ---------------------------------------------------------------------------
 (defmacro aif (test yes &optional no) 
   `(let ((it ,test)) (if it ,yes ,no)))
@@ -6,11 +22,14 @@
 (defmacro whale (expr &body body) 
   `(do ((a ,expr ,expr)) ((not a)) ,@body))
 
-(defmacro $ (x) 
-  `(opt-value (cdr (assoc *config* ,x))))
+(defmacro $ (x &optional (our *config*)) 
+  `(third (assoc ,x (our-options ,our))))
 
 (defmacro ? (s x &rest xs) 
   (if (null xs) `(slot-value ,s ',x) `(? (slot-value ,s ',x) ,@xs)))
+
+(defmacro with-csv ((lst file &optional out) &body body)
+  `(progn (csv ,file #'(lambda (,lst) ,@body)) ,out))
 
 ;;;; ---------------------------------------------------------------------------
 (defun args () 
@@ -26,39 +45,6 @@
           ((equal "?" x) #\?)
           (t (or (ignore-errors (read-from-string x)) x)))))
 
-(defun opt (key help value) 
-  (labels ((cli (&optional (com (copy-tree (args))))
-                (aif (pop com)
-                  (if (eql key (reads it))
-                    (cond ((equal value "true") nil)
-                          ((equal value "false") t)
-                          (t (and com (reads (pop com)))))
-                    (cli com)))))
-    (cons key (%make-option :key key :help help :value (or (cli) value)))))
-
-(defun %show-option (x str depth)
-  (declare (ignore depth))
-  (format str "  :~5a  ~30a  = ~a" (string-downcase (? x key)) (? x help) (? x value)))
-
-(defstruct (option (:print-function %show-option)
-                   (:constructor %make-option)) key value help)
-
-(defun help ()
-  "sbcl --script lib.lisp [OPTIONS
-(c) 2022, Tim Menzies, MIT licence
-
-Lets have some fun.
-
-OPTIONS:"
-  (list (opt :b "asda" 23)
-        (opt :p "asda" 2)
-        (opt :k "asda" 41)
-        (opt :file "asda" "asdas")
-        (opt :q "asda" 1000)))
-
-;;;; ---------------------------------------------------------------------------
-(defun make () (load "lib"))
-
 (defun subseqs (s &optional (sep #\,) (n 0))
   (aif (position sep s :start n)
     (cons (subseq s n it) (subseqs s sep (1+ it)))
@@ -70,8 +56,21 @@ OPTIONS:"
        (mapcar #'(lambda (x) (reads x t)) 
          (subseqs (or (read-line str nil) (return-from csv))))))))
 
-(defmacro with-csv ((lst file &optional out) &body body)
-  `(progn (csv ,file #'(lambda (,lst) ,@body)) ,out))
+;;;; ---------------------------------------------------------------------------
+(defmacro flag (x) `(first ,x))
+(defmacro val  (x) `(third ,x))
+
+(defun cli (our &optional (lst (args)))
+  (dolist (x (our-options our) our)
+      (setf (val x)
+            (aif (position (flag x) lst)
+              (cond ((equal  (val x) t) nil)
+                    ((equal (val x) nil) t)
+                    (t  (reads (nth (1+ it) lst))))
+              (val x)))))
+
+;;;; ---------------------------------------------------------------------------
+(defun make () (load "lib"))
 
 ;;;; ---------------------------------------------------------------------------
 (defun _while(&aux (x '(1 2 3)))
@@ -85,4 +84,4 @@ OPTIONS:"
         (format t "~s~%" (mapcar #'reads line))
         (setf head line)))))
 
-(mapc #'print (mapcar #'cdr (help)))
+(print (cli (make-our)))
