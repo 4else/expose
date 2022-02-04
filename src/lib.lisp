@@ -144,10 +144,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defun make () (load "lib"))
 
-(deftest while(&aux (x '(1 2 3)))
+(deftest _while(&aux (x '(1 2 3)))
   (whale (pop x) (print a)))
 
-(deftest csv() 
+(deftest _csv() 
   (let (head)
     (with-csv (line "../data/auto93.csv") 
       (if head
