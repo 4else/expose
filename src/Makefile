@@ -1,23 +1,20 @@
 tests:
 	ls *.lua |entr -c ../etc/tasks.sh
 
-duo:; $(MAKE) f=duo.lua pdf
 
-pdfs: 
-	$(MAKE) f=relax.lisp pdf
-	$(MAKE) f=rest.lisp pdf
-	$(MAKE) f=rely.lisp pdf
+pdfs: ../docs/relax.pdf ../docs/rest.pdf ../docs/rely.pdf
 
 f=relax/lisp
-pdf: ok 
+
+../docs/%.pdf : %.lisp ok
 	a2ps  -BjR --line-numbers=1                       \
             --borders=no --pro=color --columns 2 \
             --right-footer="" --left-footer="" \
             --footer="page %p." \
-            -M letter -o ../docs/$f.ps $f 
-	ps2pdf ../docs/$f.ps ../docs/$f.pdf
-	rm ../docs/$f.ps
-	git add ../docs/$f.pdf
+            -M letter -o $@.ps $<
+	ps2pdf $@.ps $@
+	rm $@.ps
+	git add $@
 
 html:
 	gawk -f ../etc/lua2md.awk $f > ../docs/$f.md
