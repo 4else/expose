@@ -1,4 +1,8 @@
 ; vim: ts=2 et sw=2 et:
+; toys tour torc 
+; ; tale taci tack
+; tame (lib) task (test) take
+; tech (lib) test (test) tear 
 (defstruct our 
   (help 
 "sbcl --script lib.lisp [OPTIONS
@@ -35,7 +39,7 @@ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
 FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
 DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
 SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+AUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
@@ -98,26 +102,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
          (subseqs (or (read-line str nil) (return-from csv)))))))
 
 (defun num?(x)
-  "Return a number, if you can"
+  "Return a number, if you can. Else return trimmed string."
   (let ((y (ignore-errors (read-from-string x))))
-    (cond ((null y) x)
-          ((numberp y) y)
-          (t x))))
+    (if (numberp y) y (trim x))))
 
 (defun cli (&optional (our (make-our)) (lst (args)))
   "Maybe update `our` with data from command line."
-  (labels ((cli1 (flag x) 
-                 (aif (member flag lst :test #'equalp)
-                   (cond ((equal x t)   nil) ; flip booleans
-                         ((equal x nil) t)   ; flip booleans
-                         (t (or (num? (second it)) x)))
-                   x)))
+  (labels ((cli1 (flag x) (aif (second (member flag lst :test #'equalp))
+                            (cond ((equal x t)   nil) ; flip boolean
+                                  ((equal x nil) t)   ; flip boolean
+                                  (t             (or (num? it) x)))
+                            x)))
     (dolist (x (our-options our) our)
       (setf (fourth x) (cli1 (second x) (fourth x))))))
 
 (defun randf (&optional (n 1.0)) 
   (setf ($ seed)  (mod (* 16807.0d0 ($ seed)) 2147483647.0d0))
-  (* n (- 1.0d0 (/ ($ seed) 2147483647.0d0))))
+  (* n (- 1.0d0 (/ ($ seed)                   2147483647.0d0))))
 
 (defun randi (&optional (n 1)) 
   (floor (* n (/ (randf 1000000.0) 1000000))))
