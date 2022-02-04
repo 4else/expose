@@ -71,14 +71,20 @@ Lets have some fun.")
        (mapcar #'(lambda (x) (reads x t)) 
          (subseqs (or (read-line str nil) (return-from csv))))))))
 
+(defun num?(x)
+  (let ((y (ignore-errors (read-from-string x))))
+    (cond ((null y) x)
+          ((number y) y)
+          (t x))))
+
 (defun cli (&optional (our (make-our)) (lst (args)))
   "Maybe update `our` with data from command line."
   (labels 
     ((cli1 (flag value)
              (aif (member flag lst :test #'equalp)
-               (cond ((equal value t)   nil)
-                     ((equal value nil) t)
-                     (t (or (reads (second it)) value)))
+               (cond ((equal value t)   nil) ; flip booleans
+                     ((equal value nil) t)   ; flp booleans
+                     (t (or  (num? (second it) value))))
                value)))
     (dolist (x (our-options our) our)
       (setf (fourth x) 
