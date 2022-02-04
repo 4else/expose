@@ -1,8 +1,6 @@
 ; vim: ts=2 sw=2 et:
 (defpackage :relax (:use :cl))
 (in-package :relax)
-(load "rest")
-(load "rely")
 (defstruct our 
   (help 
 "sbcl --script lib.lisp [OPTIONS
@@ -43,12 +41,15 @@ AUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
-(defvar *config* (make-our))
-
 (defmethod print-object ((o our) s)
   (format s "~a~%~%OPTIONS:~%" (our-help o))
   (dolist (x (our-options o))
     (format s "  ~5a  ~30a = ~a~%" (second x) (third x) (fourth x))))
+
+(defvar *config* (make-our))
+
+(load "rest")
+(load "rely")
 
 (setf *config* (cli (make-our)))
 (if ($ help) (print *config*))

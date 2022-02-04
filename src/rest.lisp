@@ -37,7 +37,7 @@
   "Return a number, if you can. Else return trimmed string."
   (let ((y (ignore-errors (read-from-string x))))
     (if (numberp y) y (let ((x (trim x)))
-                        (if (equal x) "?" #\? x)))))
+                        (if (equal x "?") #\? x)))))
 
 (defun subseqs (s &optional (sep #\,) (n 0))
   "Separate string on `sep`."
@@ -59,10 +59,10 @@
 
 (defun cli (&optional (our (make-our)) (lst (args)))
   "Maybe update `our` with data from command line."
-  (labels ((cli1 (flag x) (aif (second (member flag lst :test #'equalp))
+  (labels ((cli1 (flag x) (aif (member flag lst :test #'equalp)
                             (cond ((equal x t)   nil) ; flip boolean
                                   ((equal x nil) t)   ; flip boolean
-                                  (t             (or (num? it) x)))
+                                  (t             (or (num? (second it)) x)))
                             x)))
     (dolist (x (our-options our) our)
       (setf (fourth x) (cli1 (second x) (fourth x))))))
