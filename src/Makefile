@@ -4,10 +4,11 @@ tests:
 duo:; $(MAKE) f=duo.lua pdf
 
 pdfs: 
-	$(MAKE) f=fun.lua pdf
-	$(MAKE) f=duo.lua pdf
+	$(MAKE) f=relax.lisp pdf
+	$(MAKE) f=rest.lisp pdf
+	$(MAKE) f=rely.lisp pdf
 
-f=muse
+f=relax/lisp
 pdf: ok 
 	a2ps  -BjR --line-numbers=1                       \
             --borders=no --pro=color --columns 2 \
