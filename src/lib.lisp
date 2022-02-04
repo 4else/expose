@@ -68,27 +68,24 @@ Lets have some fun.")
   "Send to `fn` one list from each line."
   (with-open-file (str file)
     (loop (funcall fn 
-       (mapcar #'(lambda (x) (reads x t)) 
-         (subseqs (or (read-line str nil) (return-from csv))))))))
+         (subseqs (or (read-line str nil) (return-from csv)))))))
 
 (defun num?(x)
   (let ((y (ignore-errors (read-from-string x))))
     (cond ((null y) x)
-          ((number y) y)
+          ((numberp y) y)
           (t x))))
 
 (defun cli (&optional (our (make-our)) (lst (args)))
   "Maybe update `our` with data from command line."
   (labels 
-    ((cli1 (flag value)
-             (aif (member flag lst :test #'equalp)
-               (cond ((equal value t)   nil) ; flip booleans
-                     ((equal value nil) t)   ; flp booleans
-                     (t (or  (num? (second it) value))))
-               value)))
+    ((cli1 (flag x) (aif (member flag lst :test #'equalp)
+                          (cond ((equal x t)   nil) ; flip booleans
+                                ((equal x nil) t)   ; flp booleans
+                                (t (or (num? (second it)) x)))
+                          x)))
     (dolist (x (our-options our) our)
-      (setf (fourth x) 
-            (cli1 (second x) (fourth x))))))
+      (setf (fourth x) (cli1 (second x) (fourth x))))))
 
 (do-all-symbols(s *package*)
   (if (equal 0 (search "_" (string s) :test #'char=)) (print s)))
