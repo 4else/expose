@@ -43,15 +43,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defvar *config* (make-our))
 
 ;;;; macros --------------------------------------------------------------------
-(defstruct (few (:constructor %make-few))
-  ok (lst (make-array 5 :fill-pointer 0)) max)
-
-(defstruct (num (:constructor %make-num))
-  (n 0) (w 1) (at 0) (txt "") (all (make-few)) 
-  (lo most-positive-fixnum) (hi most-negative-fixnum))
-
-(defstruct (sym (:constructor %make-sym))
-  mode seen (n 0) (at 0) (txt "") (most 0))
 
 ;;;; macros --------------------------------------------------------------------
 (defmacro aif (test yes &optional no) 
@@ -125,14 +116,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
     (dolist (x (our-options our) our)
       (setf (fourth x) (cli1 (second x) (fourth x))))))
 
-;;;; num  ----------------------------------------------------------
+;;;; our  ----------------------------------------------------------
 (defmethod print-object ((o our) s)
   (format s "~a~%~%OPTIONS:~%" (our-help o))
   (dolist (x (our-options o))
     (format s "  ~5a  ~a = ~a~%" (second x) (third x) (fourth x))))
 
-(defun make-few (&key (max ($ enough)))
-  (%make-few :max max))
+;;;; few  ----------------------------------------------------------------------
+
+(defun add (s x)
+  (unless (eq x #\?)
+    (incf (? s n))
+    (add1 s x))
+  x)
+
+(defun adds (s lst)
+  (dolist (new lst s) (add s new)))
+
+(defstruct (few (:constructor %make-few)) 
+  ok (n 0) (lst (make-array 5 :adjustable t :fill-pointer 0)) (max ($ enough)))
+
+(defun make-few (&key init)
+  (adds (%make-few) init))
 
 (defmethod has ((f few))
   (with-slots (ok lst) f
@@ -141,38 +146,38 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
       ok t))
     lst))
 
-(defmethod add ((f few) x)
-  (vector-push x (? f lst))
-  (setf (? f ok) nil))
+(defmethod add1 ((f few) x)
+  (setf (? f ok) nil)
+  (vector-push-extend x (? f lst)))
+
+;;;; num  ----------------------------------------------------------------------
+(defstruct (num (:constructor %make-num))
+  (n 0) (w 1) (at 0) (txt "") (all (make-few)) 
+  (lo most-positive-fixnum) (hi most-negative-fixnum))
 
 (defun make-num (&key init (txt "") (at 0) )
-  (let ((new (%make-num :txt txt :at at :w (if (find #\< txt) -1 1))))
-    (dolist (x init new) (add new x))))
+  (adds (%make-num :txt txt :at at :w (if (find #\< txt) -1 1)) init))
 
-(defmethod add ((n num) x)
-  (with-slots (n lo hi ok all) n
-    (unless (eql x #\?) 
+(defmethod add1 ((n num) x)
+  (with-slots (n lo hi all) n
       (incf n)
       (setf lo (min x lo)
-            hi (max x hi)
-            ok nil)
-      (push x all)))
-  x)
+            hi (max x hi))
+      (add all x)))
 
-;;;; sym  ----------------------------------------------------------
+;;;; sym  ---------------------------------------------------------------------=
+(defstruct (sym (:constructor %make-sym))
+  mode seen (n 0) (at 0) (txt "") (most 0))
+
 (defun make-sym (&key init (txt "") (at 0) )
-  (let ((new (%make-sym :txt txt :at at)))
-    (dolist (x init new) (add new x))))
+  (adds (%make-sym :txt txt :at at) init))
 
-(defmethod add ((s sym) x)
+(defmethod add1 ((s sym) x)
   (with-slots (n seen most mode) s
-    (unless (eql x #\?) 
-      (incf n)
-      (let ((now (inca x seen)))
-        (if (> now most)
-          (setf most now
-                mode x)))))
-  x)
+    (let ((now (inca x seen)))
+      (if (> now most)
+        (setf most now
+              mode x)))))
 
 ;;;; ---------------------------------------------------------------------------
 (defvar *tests* nil)
@@ -209,7 +214,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
         (setf head line)))))
 
 (deftest num.()
-  (make-num :init '(1 1 2 3 4 5 6 7)))
+  (print (has (? (make-num :init '(1 2 4 #\? 1 1 1 1 1 11 )) all))))
 
 ;;;; ---------------------------------------------------------------------------
 (setf *config* (cli (make-our)))
