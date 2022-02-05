@@ -134,12 +134,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
   (with-slots (ok lst) f
     (unless ok
       (setf lst (sort lst #'<)
-      ok t))
+            ok t))
     lst))
 
 (defmethod add1 ((f few) x)
-  (setf (? f ok) nil)
-  (vector-push-extend x (? f lst)))
+  (with-slots (max ok lst n) f
+    (incf n)
+    (cond ((< (length lst) max)
+           (setf ok nil)
+           (vector-push-extend x lst))
+          (t (if (< (randf)  (/ n max))
+               (setf ok nil)
+               (setf (svref lst (floor (randi (length lst)) 1)) x))))))
+
+(defmethod div ((f few)) (/ (- (per f .9) (per f .1)) 2.56))
+(defmethod mid ((f few)) (per f .5))
+(defmethod per ((f few) &optional (p .5) &aux (all (has f)))
+  (svref all (floor (* p (length all)))))
+
 
 ;;;; num  ----------------------------------------------------------------------
 (defstruct (num (:constructor %make-num))
@@ -151,12 +163,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defmethod add1 ((n num) x)
   (with-slots (n lo hi all) n
-      (incf n)
-      (setf lo (min x lo)
-            hi (max x hi))
-      (add all x)))
+    (add all x)
+    (setf n  (1+ n)
+          lo (min x lo)
+          hi (max x hi))))
 
-;;;; sym  ---------------------------------------------------------------------=
+(defmethod div ((f num)) (div (? f all)))
+(defmethod mid ((f num)) (mid (? f all)))
+
+;;;; sym  ----------------------------------------------------------------------
 (defstruct (sym (:constructor %make-sym))
   mode seen (n 0) (at 0) (txt "") (most 0))
 
@@ -170,15 +185,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
         (setf most now
               mode x)))))
 
-(defun add (s x)
+(defmethod div ((f sym)) 
+  (labels ((p (x) (/ (* -1 (cdr x)) (? f n))))
+    (reduce '+ (mapcar #'p (? f all)))))
+
+(defmethod mid ((f sym)) (? f mode))
+
+;;;; generic -------------------------------------------------------------------
+(defun add (it x)
   (unless (eq x #\?)
-    (incf (? s n))
-    (add1 s x))
+    (incf (? it n))
+    (add1 it x))
   x)
 
 (defun adds (s lst)
   (dolist (new lst s) (add s new)))
-
 
 ;;;; ---------------------------------------------------------------------------
 (defvar *tests* nil)
@@ -203,8 +224,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
             (format t "~&~a [~a] ~a ~a~%" "FAIL" one doc err)
             (format t "~&~a [~a] ~a~%"    "PASS" one doc)))))))  
 
-(defun make () (load "lib"))
-
+;;;; demos ---------------------------------------------------------------------
 (deftest whale.(&aux (x '(1 2 3)))
   (whale (pop x) (print a)))
 
@@ -222,4 +242,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (setf *config* (cli (make-our)))
 (if ($ help) (print *config*))
 (if ($ license) (princ (our-copyright *config*)))
-;(demos ($ todo))
+(demos ($ todo))
