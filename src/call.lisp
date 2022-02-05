@@ -16,7 +16,6 @@
   "Access  a config variable name."
   `(fourth (assoc ',x (our-options ,our))))
 
-
 (defmacro with-csv ((lst file &optional out) &body body)
   "File row iterator."
   `(progn (csv ,file #'(lambda (,lst) ,@body)) ,out))

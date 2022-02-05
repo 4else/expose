@@ -8,15 +8,13 @@
 
 Lets have some fun.")
   (options 
-    '((b    "-b" "asda" 23)
-      (enough "-e" "enough" 512)
-      (p    "-p" "asda" 2)
-      (help "-h" "asda" nil)
-      (license "-l" "asda" nil)
-      (file "-f" "asda" "asdas")
-      (seed "-s" "random number seed" 10019)
-      (todo "-t" "start up action" "")
-      (q    "-q" "asda" 1000)))
+    '((enough  "-e" "enough items for a sample"  512)
+      (file    "-f" "read data from file      "  "../data/auto93.csv")
+      (help    "-h" "show help                "  nil)
+      (license "-l" "show license             "  nil)
+      (p       "-p" "euclidean coefficient    "  2)
+      (seed    "-s" "random number seed       "  10019)
+      (todo    "-t" "start up action          "  "")))
   (copyright "
 Copyright (c) 2022 Tim Menzies
 All rights reserved.
@@ -43,22 +41,19 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defvar *config* (make-our))
-(defmethod print-object ((o our) s)
-  (format s "~a~%~%OPTIONS:~%" (our-help o))
-  (dolist (x (our-options o))
-    (format s "  ~5a  ~30a = ~a~%" (second x) (third x) (fourth x))))
 
-(defstruct (some (:constructor %make-some))
-  ok (all (make-array 5 :fill-pointer 0)) max)
+;;;; macros --------------------------------------------------------------------
+(defstruct (few (:constructor %make-few))
+  ok (lst (make-array 5 :fill-pointer 0)) max)
 
 (defstruct (num (:constructor %make-num))
-  (n 0) (w 1) (at 0) (txt "") (all (some)) 
+  (n 0) (w 1) (at 0) (txt "") (all (make-few)) 
   (lo most-positive-fixnum) (hi most-negative-fixnum))
 
 (defstruct (sym (:constructor %make-sym))
   mode seen (n 0) (at 0) (txt "") (most 0))
 
-;;;; macros --------------------------------------------------------------------
+;;;; macros --------------------------------------------------------------------
 (defmacro aif (test yes &optional no) 
   "Anaphoric if (traps result of conditional in `it`)."
   `(let ((it ,test)) (if it ,yes ,no)))
@@ -82,47 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defmacro inca (x a &optional (inc  1))
   `(incf (cdr (or (assoc ,x ,a :test #'equal)
                   (car (setf ,a (cons (cons ,x 0) ,a))))) ,inc))
-
-;;;; num  ----------------------------------------------------------
-(defun make-some (&key (max ($ enough)))
-  (%make-some :max max))
-
-(defmethod all ((s some))
-  (unless (? s ok)
-    (setf (? all) (sort (? all) #'<)
-          (? s ok) t))
-  (? s all))
-
-(defmethod add ((s some) x)
-  (vector-push x (? s all))
-  (setf (? s ok) nil))
-
-(defun make-num (&key init (txt "") (at 0) )
-  (let ((new (%make-num :txt txt :at at :w (if (find #\< txt) -1 1))))
-    (dolist (x init new) (add new x))))
-
-(defmethod add ((n num) x &optional (inc 1))
-  (unless (eql x #\?) 
-    (incf (? n n))
-    (setf lo (min x (? n lo))
-          hi (max x (? n ho))
-          ok nil)
-    (push x (? n all)))
-  x)
-
-;;;; sym  ----------------------------------------------------------
-(defun make-sym (&key init (txt "") (at 0) )
-  (let ((new (%make-sym :txt txt :at at)))
-    (dolist (x init new) (add new x))))
-
-(defmethod add ((s sym) x &optional (inc 1))
-  (unless (eql x #\?) 
-    (incf (? s n ) inc)
-    (let ((now (inca x (? s seen))))
-      (if (> now (? s most))
-        (setf (? s most) now
-              (? s mode) x))))
-  x)
 
 ;;;; random  ----------------------------------------------------------
 (defun randf (&optional (n 1.0)) 
@@ -171,6 +125,55 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
     (dolist (x (our-options our) our)
       (setf (fourth x) (cli1 (second x) (fourth x))))))
 
+;;;; num  ----------------------------------------------------------
+(defmethod print-object ((o our) s)
+  (format s "~a~%~%OPTIONS:~%" (our-help o))
+  (dolist (x (our-options o))
+    (format s "  ~5a  ~a = ~a~%" (second x) (third x) (fourth x))))
+
+(defun make-few (&key (max ($ enough)))
+  (%make-few :max max))
+
+(defmethod has ((f few))
+  (with-slots (ok lst) f
+    (unless ok
+      (setf lst (sort lst #'<)
+      ok t))
+    lst))
+
+(defmethod add ((f few) x)
+  (vector-push x (? f lst))
+  (setf (? f ok) nil))
+
+(defun make-num (&key init (txt "") (at 0) )
+  (let ((new (%make-num :txt txt :at at :w (if (find #\< txt) -1 1))))
+    (dolist (x init new) (add new x))))
+
+(defmethod add ((n num) x)
+  (with-slots (n lo hi ok all) n
+    (unless (eql x #\?) 
+      (incf n)
+      (setf lo (min x lo)
+            hi (max x hi)
+            ok nil)
+      (push x all)))
+  x)
+
+;;;; sym  ----------------------------------------------------------
+(defun make-sym (&key init (txt "") (at 0) )
+  (let ((new (%make-sym :txt txt :at at)))
+    (dolist (x init new) (add new x))))
+
+(defmethod add ((s sym) x)
+  (with-slots (n seen most mode) s
+    (unless (eql x #\?) 
+      (incf n)
+      (let ((now (inca x seen)))
+        (if (> now most)
+          (setf most now
+                mode x)))))
+  x)
+
 ;;;; ---------------------------------------------------------------------------
 (defvar *tests* nil)
 (defvar *fails* 0)
@@ -181,8 +184,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defun demos (&optional what)
   (dolist (one *tests*)
-    (let ((doc (documentation one 'function)))
-      (when (or (not what) (eql one what))
+    (let* ((what (string-upcase (string what)))
+           (txt  (string-upcase (string one)))
+           (doc  (documentation one 'function)))
+      (when (or (not what) (search  what txt))
         (setf *config* (cli (make-our)))
         (multiple-value-bind (_ err)
           (ignore-errors (funcall one))
@@ -193,17 +198,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defun make () (load "lib"))
 
-(deftest _while(&aux (x '(1 2 3)))
+(deftest whale.(&aux (x '(1 2 3)))
   (whale (pop x) (print a)))
 
-(deftest _csv() 
+(deftest csv.() 
   (let (head)
     (with-csv (line "../data/auto93.csv") 
       (if head
-        (format t "~s~%" (mapcar #'reads line))
+        (format t "~s~%" (mapcar #'num? line))
         (setf head line)))))
+
+(deftest num.()
+  (make-num :init '(1 1 2 3 4 5 6 7)))
 
 ;;;; ---------------------------------------------------------------------------
 (setf *config* (cli (make-our)))
 (if ($ help) (print *config*))
 (if ($ license) (princ (our-copyright *config*)))
+(demos ($ todo))
