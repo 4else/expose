@@ -124,15 +124,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 ;;;; few  ----------------------------------------------------------------------
 
-(defun add (s x)
-  (unless (eq x #\?)
-    (incf (? s n))
-    (add1 s x))
-  x)
-
-(defun adds (s lst)
-  (dolist (new lst s) (add s new)))
-
 (defstruct (few (:constructor %make-few)) 
   ok (n 0) (lst (make-array 5 :adjustable t :fill-pointer 0)) (max ($ enough)))
 
@@ -179,6 +170,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
         (setf most now
               mode x)))))
 
+(defun add (s x)
+  (unless (eq x #\?)
+    (incf (? s n))
+    (add1 s x))
+  x)
+
+(defun adds (s lst)
+  (dolist (new lst s) (add s new)))
+
+
 ;;;; ---------------------------------------------------------------------------
 (defvar *tests* nil)
 (defvar *fails* 0)
@@ -196,6 +197,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
         (setf *config* (cli (make-our)))
         (multiple-value-bind (_ err)
           (ignore-errors (funcall one))
+          (identity _)
           (incf *fails* (if err 1 0))
           (if err
             (format t "~&~a [~a] ~a ~a~%" "FAIL" one doc err)
@@ -220,4 +222,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (setf *config* (cli (make-our)))
 (if ($ help) (print *config*))
 (if ($ license) (princ (our-copyright *config*)))
-(demos ($ todo))
+;(demos ($ todo))
