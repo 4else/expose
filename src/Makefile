@@ -2,7 +2,7 @@ tests:
 	ls *.lua |entr -c ../etc/tasks.sh
 
 
-pdfs: ../docs/relax.pdf ../docs/rest.pdf ../docs/rely.pdf
+pdfs: ../docs/small.pdf
 
 f=relax/lisp
 

@@ -8,13 +8,14 @@
   "Anaphoric while (traps result of conditional in `a`)."
   `(do ((a ,expr ,expr)) ((not a)) ,@body))
 
+(defmacro ? (s x &rest xs) 
+  "Nested access to slots."
+  (if (null xs) `(slot-value ,s ',x) `(? (slot-value ,s ',x) ,@xs)))
+
 (defmacro $ (x &optional (our *config*)) 
   "Access  a config variable name."
   `(fourth (assoc ',x (our-options ,our))))
 
-(defmacro ? (s x &rest xs) 
-  "Nested access to slots."
-  (if (null xs) `(slot-value ,s ',x) `(? (slot-value ,s ',x) ,@xs)))
 
 (defmacro with-csv ((lst file &optional out) &body body)
   "File row iterator."
