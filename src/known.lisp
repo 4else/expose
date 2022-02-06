@@ -10,7 +10,7 @@
 (in-package :small)
 (defstruct our 
   (help 
-"sbcl --noinform --script known.lisp [OPTIONS
+"sbcl --noinform --script known.lisp [OPTIONS]
 (c) 2022, Tim Menzies, MIT license
 
 Lets have some fun.")
@@ -179,7 +179,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defmethod print-object ((o our) s)
   (format s "~a~%~%OPTIONS:~%" (our-help o))
   (dolist (x (our-options o))
-    (format s "  ~5a  ~a = ~a~%" (second x) (third x) (fourth x))))
+    (format s "  ~5a  ~a " (second x) (third x))
+    (if (member (fourth x) '(t nil))
+        (terpri)
+        (format s "= ~a~%" (fourth x)))))
 ;           __                                           __                  
 ;          /\ \__                                       /\ \__               
 ;   ____   \ \ ,_\      _ __       __  __        ___    \ \ ,_\        ____  
@@ -198,7 +201,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defun make-few (&key init) (adds init (%make-few)))
 
 (defun per (few &optional (p .5) &aux (all (has few)))
-  (elt (floor (* p (length (? few %has)))) (? few %has)))
+  (elt (? few %has) (floor (* p (length (? few %has))))))
 
 (defmethod add1 ((f few) x)
   (with-slots (max ok %has n) f
@@ -402,9 +405,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; ___]  |  |  | |  \  |  
 
 (setf *config* (cli (make-our)))
-(if ($ help) (print *config*))
-(if ($ license) (princ (our-copyright *config*)))
-(demos ($ todo))
+(cond (($ help)    (print *config*))
+      (($ license) (princ (our-copyright *config*)))
+      (t           (demos ($ todo))))
 
 " todo
 
