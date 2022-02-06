@@ -40,11 +40,19 @@ AUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
-(defvar *config* (make-our))
+(defvar *config* (make-our))
+;    ___                                        
+;  /'___\                                       
+; /\ \__/       __  __        ___         ____  
+; \ \ ,__\     /\ \/\ \     /' _ `\      /',__\ 
+;  \ \ \_/     \ \ \_\ \    /\ \/\ \    /\__, `\
+;   \ \_\       \ \____/    \ \_\ \_\   \/\____/
+;    \/_/        \/___/      \/_/\/_/    \/___/ 
+                                              
+; _  _ ____ ____ ____ ____ ____ ------------------------------------------------
+; |\/| |__| |    |__/ |  | [__  
+; |  | |  | |___ |  \ |__| ___] 
 
-;;;; macros --------------------------------------------------------------------
-
-;;;; macros --------------------------------------------------------------------
 (defmacro aif (test yes &optional no) 
   "Anaphoric if (traps result of conditional in `it`)."
   `(let ((it ,test)) (if it ,yes ,no)))
@@ -68,16 +76,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defmacro inca (x a &optional (inc  1))
   `(incf (cdr (or (assoc ,x ,a :test #'equal)
                   (car (setf ,a (cons (cons ,x 0) ,a))))) ,inc))
+; _  _ ____ ___ _  _ ____ ------------------------------------------------------
+; |\/| |__|  |  |__| [__  
+; |  | |  |  |  |  | ___] 
 
-;;;; random  ----------------------------------------------------------
 (defun randf (&optional (n 1.0)) 
   (setf ($ seed)  (mod (* 16807.0d0 ($ seed)) 2147483647.0d0))
   (* n (- 1.0d0 (/ ($ seed)                   2147483647.0d0))))
 
-(defun randi (&optional (n 1)) 
-  (floor (* n (/ (randf 1000000.0) 1000000))))
+(defun randi (&optional (n 1)) (floor (* n (/ (randf 1000000.0) 1000000))))
 
-;;;; strings -------------------------------------------------------------------
+(defun rnd (number &optional (places 3) &aux (div (expt 10 places)))
+  (float (/ (round (* number div)) div)))
+
+(defmethod rnds ((vec vector) &optional (places 3)) 
+  (rnds (coerce  vec 'list) places))
+
+(defmethod rnds ((lst cons) &optional (places 3)) 
+  (mapcar #'(lambda (x) (rnd x places)) lst))
+; ____ ___ ____ _ _  _ ____ ____ -----------------------------------------------
+; [__   |  |__/ | |\ | | __ [__  
+; ___]  |  |  \ | | \| |__] ___] 
+
 (defun trim (x) 
   "Remove whitespace front and back."
   (string-trim '(#\Space #\Newline #\Tab) x))
@@ -93,8 +113,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
   (aif (position sep s :start n)
     (cons (subseq s n it) (subseqs s sep (1+ it)))
     (list (subseq s n))))
+; ____  ____  ------------------------------------------------------------------
+; |  |  [__   
+; |__| .___] .
 
-;;;; operating system ----------------------------------------------------------
 (defun args () 
   "Return list of command line arguments."
   #+clisp (cdddr (cddr (coerce (EXT:ARGV) 'list)))
@@ -103,8 +125,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defun csv (file &optional (fn #'print))
   "Send to `fn` one list from each line."
   (with-open-file (str file)
-    (loop (funcall fn 
-         (subseqs (or (read-line str nil) (return-from csv)))))))
+    (loop (funcall fn (subseqs (or (read-line str nil) (return-from csv)))))))
 
 (defun cli (&optional (our (make-our)) (lst (args)))
   "Maybe update `our` with data from command line."
@@ -115,45 +136,56 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
                             x)))
     (dolist (x (our-options our) our)
       (setf (fourth x) (cli1 (second x) (fourth x))))))
+; ____ _  _ ____ ---------------------------------------------------------------
+; |  | |  | |__/ 
+; |__| |__| |  \ 
 
-;;;; our  ----------------------------------------------------------
 (defmethod print-object ((o our) s)
   (format s "~a~%~%OPTIONS:~%" (our-help o))
   (dolist (x (our-options o))
-    (format s "  ~5a  ~a = ~a~%" (second x) (third x) (fourth x))))
-
-;;;; few  ----------------------------------------------------------------------
+    (format s "  ~5a  ~a = ~a~%" (second x) (third x) (fourth x))))
+;           __                                           __                  
+;          /\ \__                                       /\ \__               
+;   ____   \ \ ,_\      _ __       __  __        ___    \ \ ,_\        ____  
+;  /',__\   \ \ \/     /\`'__\    /\ \/\ \      /'___\   \ \ \/       /',__\ 
+; /\__, `\   \ \ \_    \ \ \/     \ \ \_\ \    /\ \__/    \ \ \_     /\__, `\
+; \/\____/    \ \__\    \ \_\      \ \____/    \ \____\    \ \__\    \/\____/
+;  \/___/      \/__/     \/_/       \/___/      \/____/     \/__/     \/___/ 
+;                                                                            
+                                                                           
+; ____ ____ _ _ _ --------------------------------------------------------------
+; |___ |___ | | | 
+; |    |___ |_|_| 
 
 (defstruct (few (:constructor %make-few)) 
   ok (n 0) (lst (make-array 5 :adjustable t :fill-pointer 0)) (max ($ enough)))
 
-(defun make-few (&key init)
-  (adds (%make-few) init))
-
-(defmethod has ((f few))
-  (with-slots (ok lst) f
-    (unless ok
-      (setf lst (sort lst #'<)
-            ok t))
-    lst))
+(defun make-few (&key init) (adds (%make-few) init))
 
 (defmethod add1 ((f few) x)
   (with-slots (max ok lst n) f
-    (incf n)
     (cond ((< (length lst) max)
            (setf ok nil)
            (vector-push-extend x lst))
           (t (if (< (randf)  (/ n max))
-               (setf ok nil)
-               (setf (svref lst (floor (randi (length lst)) 1)) x))))))
+               (setf ok nil
+                     (svref lst (floor (randi (length lst)) 1)) x))))))
 
 (defmethod div ((f few)) (/ (- (per f .9) (per f .1)) 2.56))
+
+(defmethod has ((f few))
+  (with-slots (ok lst) f
+    (unless ok (setf lst (sort lst #'<)
+                     ok  t))
+    lst))
+
 (defmethod mid ((f few)) (per f .5))
 (defmethod per ((f few) &optional (p .5) &aux (all (has f)))
-  (svref all (floor (* p (length all)))))
+  (aref (? f lst) (floor (* p (length (? f lst))))))
+; _  _ _  _ _  _ ---------------------------------------------------------------
+; |\ | |  | |\/| 
+; | \| |__| |  | 
 
-
-;;;; num  ----------------------------------------------------------------------
 (defstruct (num (:constructor %make-num))
   (n 0) (w 1) (at 0) (txt "") (all (make-few)) 
   (lo most-positive-fixnum) (hi most-negative-fixnum))
@@ -164,14 +196,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defmethod add1 ((n num) x)
   (with-slots (n lo hi all) n
     (add all x)
-    (setf n  (1+ n)
-          lo (min x lo)
+    (incf n)
+    (setf lo (min x lo)
           hi (max x hi))))
 
 (defmethod div ((f num)) (div (? f all)))
 (defmethod mid ((f num)) (mid (? f all)))
+; ____ _   _ _  _ --------------------------------------------------------------
+; [__   \_/  |\/| 
+; ___]   |   |  | 
 
-;;;; sym  ----------------------------------------------------------------------
 (defstruct (sym (:constructor %make-sym))
   mode seen (n 0) (at 0) (txt "") (most 0))
 
@@ -186,28 +220,39 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
               mode x)))))
 
 (defmethod div ((f sym)) 
-  (labels ((p (x) (/ (* -1 (cdr x)) (? f n))))
-    (reduce '+ (mapcar #'p (? f all)))))
+  (labels ((p    (x) (/ (cdr x) (? f n)))
+           (plog (x) (* -1 (p x) (log (p x) 2))))
+    (reduce '+ (mapcar #'plog (? f seen)))))
 
 (defmethod mid ((f sym)) (? f mode))
-
-;;;; generic -------------------------------------------------------------------
+; ____ _    _  _ ____ ----------------------------------------------------------
+; | __ |    |  | |___ 
+; |__] |___ |__| |___ 
+                    
 (defun add (it x)
   (unless (eq x #\?)
     (incf (? it n))
     (add1 it x))
   x)
 
-(defun adds (s lst)
-  (dolist (new lst s) (add s new)))
+(defun adds (s lst) (dolist (new lst s) (add s new)))
+;                             __                
+;   ___ ___          __      /\_\        ___    
+; /' __` __`\      /'__`\    \/\ \     /' _ `\  
+; /\ \/\ \/\ \    /\ \L\.\_   \ \ \    /\ \/\ \ 
+; \ \_\ \_\ \_\   \ \__/.\_\   \ \_\   \ \_\ \_\
+;  \/_/\/_/\/_/    \/__/\/_/    \/_/    \/_/\/_/
 
-;;;; ---------------------------------------------------------------------------
+; ___  ____ _  _ ____ ____ ----------------------------------------------------
+; |  \ |___ |\/| |  | [__  
+; |__/ |___ |  | |__| ___] 
+                         
 (defvar *tests* nil)
 (defvar *fails* 0)
 
-(defmacro deftest (name params  doc  &body body)
+(defmacro dofun (name params  doc  &body body)
   `(progn (pushnew  ',name *tests*) 
-          (defun ,name ,params ,doc ,@body)))
+          (defun ,name ,params ,doc (progn (print ',name) ,@body))))
 
 (defun demos (&optional what)
   (dolist (one *tests*)
@@ -224,22 +269,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
             (format t "~&~a [~a] ~a ~a~%" "FAIL" one doc err)
             (format t "~&~a [~a] ~a~%"    "PASS" one doc)))))))  
 
-;;;; demos ---------------------------------------------------------------------
-(deftest whale.(&aux (x '(1 2 3)))
+(dofun whale.(&aux (x '(1 2 3)))
+  "whale"
   (whale (pop x) (print a)))
 
-(deftest csv.() 
-  (let (head)
-    (with-csv (line "../data/auto93.csv") 
-      (if head
-        (format t "~s~%" (mapcar #'num? line))
-        (setf head line)))))
+(dofun few.(&aux (f (make-few)))
+  "few"
+  (print (has (dotimes (i 10000 f) (add f (randi 100))))))
 
-(deftest num.()
-  (print (has (? (make-num :init '(1 2 4 #\? 1 1 1 1 1 11 )) all))))
+(dofun csv.(&aux head) 
+  "csv"
+  (with-csv (line "../data/auto93.csv") 
+    (if head
+      (format t "~s~%" (mapcar #'num? line))
+      (setf head line))))
 
-;;;; ---------------------------------------------------------------------------
+(dofun num.(&aux (n (make-num)))
+  "streams of nums"
+  (print (has (? (adds n '(1 2 4 #\? 1 1 1 1 1 11 )) all))))
+
+(dofun sym.(&aux (s (make-sym)))
+  "streams of symbols"
+  (print (div (adds s (coerce "aaaabbc" 'list)))))
+; ____ ___ ____ ____ ___ -------------------------------------------------------
+; [__   |  |__| |__/  |  
+; ___]  |  |  | |  \  |  
+;                        
 (setf *config* (cli (make-our)))
 (if ($ help) (print *config*))
 (if ($ license) (princ (our-copyright *config*)))
 (demos ($ todo))
+
