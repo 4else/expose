@@ -112,9 +112,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; [__   |  |__/ | |\ | | __ [__  
 ; ___]  |  |  \ | | \| |__] ___] 
 
-(defun ucase (s)
+(defun cccase (s)
   (let ((s (char s 1)))
     (equal s (string-upcase s))))
+
+(print 10000)
 
 (defun trim (x) 
   "Remove whitespace front and back."
@@ -324,10 +326,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
       (setf cols (mapcar #'(lambda (c) (col s c)) (cells eg))))
     eg))
 
-(defmethod col ((s sample) str)
-  (let ((now (if (subseq str 0 1) o
-
-  (make-instance 'person
 ;                             __                
 ;   ___ ___          __      /\_\        ___    
 ; /' __` __`\      /'__`\    \/\ \     /' _ `\  
@@ -385,5 +383,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (setf *config* (cli (make-our)))
 (if ($ help) (print *config*))
 (if ($ license) (princ (our-copyright *config*)))
-(demos ($ todo))
+;(demos ($ todo))
 
