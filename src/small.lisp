@@ -1,9 +1,16 @@
 ; vim: ts=2 sw=2 et:
+;      _______..___  ___.      ___       __       __      
+;     /       ||   \/   |     /   \     |  |     |  |     
+;    |   (----`|  \  /  |    /  ^  \    |  |     |  |     
+;     \   \    |  |\/|  |   /  /_\  \   |  |     |  |     
+; .----)   |   |  |  |  |  /  _____  \  |  `----.|  `----.
+; |_______/    |__|  |__| /__/     \__\ |_______||_______|
+
 (defpackage :small (:use :cl))
 (in-package :small)
 (defstruct our 
   (help 
-"sbcl --script lib.lisp [OPTIONS
+"sbcl --noinform --script small.lisp [OPTIONS
 (c) 2022, Tim Menzies, MIT license
 
 Lets have some fun.")
@@ -40,19 +47,14 @@ AUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
-(defvar *config* (make-our))
-;    ___                                        
-;  /'___\                                       
-; /\ \__/       __  __        ___         ____  
-; \ \ ,__\     /\ \/\ \     /' _ `\      /',__\ 
-;  \ \ \_/     \ \ \_\ \    /\ \/\ \    /\__, `\
-;   \ \_\       \ \____/    \ \_\ \_\   \/\____/
-;    \/_/        \/___/      \/_/\/_/    \/___/ 
-                                              
-; _  _ ____ ____ ____ ____ ____ ------------------------------------------------
-; |\/| |__| |    |__/ |  | [__  
-; |  | |  | |___ |  \ |__| ___] 
+(defvar *config* (make-our))
 
+;   ___ ___          __          ___       _ __         ___         ____  
+; /' __` __`\      /'__`\       /'___\    /\`'__\      / __`\      /',__\ 
+; /\ \/\ \/\ \    /\ \L\.\_    /\ \__/    \ \ \/      /\ \L\ \    /\__, `\
+; \ \_\ \_\ \_\   \ \__/.\_\   \ \____\    \ \_\      \ \____/    \/\____/
+;  \/_/\/_/\/_/    \/__/\/_/    \/____/     \/_/       \/___/      \/___/ 
+                                                                        
 (defmacro aif (test yes &optional no) 
   "Anaphoric if (traps result of conditional in `it`)."
   `(let ((it ,test)) (if it ,yes ,no)))
@@ -76,6 +78,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defmacro inca (x a &optional (inc  1))
   `(incf (cdr (or (assoc ,x ,a :test #'equal)
                   (car (setf ,a (cons (cons ,x 0) ,a))))) ,inc))
+
+(defmacro dofun (name params  doc  &body body)
+  `(progn (pushnew  ',name *tests*) 
+          (defun ,name ,params ,doc (progn (print ',name) ,@body))))
+;    ___                                        
+;  /'___\                                       
+; /\ \__/       __  __        ___         ____  
+; \ \ ,__\     /\ \/\ \     /' _ `\      /',__\ 
+;  \ \ \_/     \ \ \_\ \    /\ \/\ \    /\__, `\
+;   \ \_\       \ \____/    \ \_\ \_\   \/\____/
+;    \/_/        \/___/      \/_/\/_/    \/___/ 
+                                              
 ; _  _ ____ ___ _  _ ____ ------------------------------------------------------
 ; |\/| |__|  |  |__| [__  
 ; |  | |  |  |  |  | ___] 
@@ -247,13 +261,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; |  \ |___ |\/| |  | [__  
 ; |__/ |___ |  | |__| ___] 
                          
-(defvar *tests* nil)
 (defvar *fails* 0)
-
-(defmacro dofun (name params  doc  &body body)
-  `(progn (pushnew  ',name *tests*) 
-          (defun ,name ,params ,doc (progn (print ',name) ,@body))))
-
+(defvar *tests* nil)
 (defun demos (&optional what)
   (dolist (one *tests*)
     (let* ((what (string-upcase (string what)))
