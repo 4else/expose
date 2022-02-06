@@ -139,7 +139,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defun csv (file &optional (fn #'print))
   "Send to `fn` one list from each line."
   (with-open-file (str file)
-    (loop (funcall fn (subseqs (or (read-line str nil) (return-from csv)))))))
+    (loop 
+      (funcall 
+        fn 
+        (coerce (subseqs (or (read-line str nil) 
+                             (return-from csv))) 'simple-vector)))))
 
 (defun cli (&optional (our (make-our)) (lst (args)))
   "Maybe update `our` with data from command line."
@@ -153,9 +157,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; _  _ _ ____ ____ -------------------------------------------------------------
 ; |\/| | [__  |    
 ; |  | | ___] |___ 
+ 
  (let ((_id 0)) 
    (defun id () (incf _id)))
-
 ; ____ _  _ ____ ---------------------------------------------------------------
 ; |  | |  | |__/ 
 ; |__| |__| |  \ 
@@ -183,16 +187,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defmethod add1 ((f few) x)
   (with-slots (max ok lst n) f
-    (print x)
-    (cond ((< (length lst) max)
-           (setf ok nil)
-           (vector-push-extend x lst))
-          (t (print 500) (when (< (randf)  (/ n max))
-               (print (type-of lst))
-               (print (length lst))
-               (setf ok nil
-                     (svref lst (randi (length lst))) x))))
-    (print x)))
+    (cond 
+      ((< (length lst) max)
+       (setf ok nil)
+       (vector-push-extend x lst))
+      (t (when (< (randf)  (/ n max))
+           (setf ok nil
+                 (elt lst (randi (length lst))) x))))))
 
 (defmethod div ((f few)) (/ (- (per f .9) (per f .1)) 2.56))
 
@@ -269,7 +270,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; | __ |    |  | |___ 
 ; |__] |___ |__| |___ 
                     
-(defmethod add ((it t) x)
+(defun add (it x)
   (unless (eq x #\?)
     (incf (? it n))
     (add1 it x))
@@ -294,18 +295,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; |___  \/  |__| |\/| |__] |    |___ 
 ; |___ _/\_ |  | |  | |    |___ |___ 
 
-(defstruct example cells)
+(defstruct (example (:constructor %make-example)) cells)
 
-(defmethod cell ((i example) (c integer))  (aref (? i cells) c))
-(defmethod cell ((i example) c)            (aref (? i cells) (? c at)))
-
-(defmethod cells ((i example)) (? i cells))
-(defmethod cells ((i cons))    i)
+(defmethod cell ((i example) col) 
+  (svref (? i cells) (? col at)))
 
 (defmethod lt ((i example) (j example) cols) 
   (let ((s1 0) (s2 0) (n (length cols)))
     (dolist (col cols (< (/ s1 n) (/ s2 n)))
-      (let ((a (norm col (cell i col)))
+      (let ((a (norm col (cell i col))) ; XXX echo for better and dist
             (b (norm col (cell i col))))
         (decf s1 (exp (* (? col w) (/ (- a b) n))))
         (decf s2 (exp (* (? col w) (/ (- b a) n))))))))
@@ -317,20 +315,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; ____ ____ _  _ ___  _    ____ -----------------------------------------------
 ; [__  |__| |\/| |__] |    |___ 
 ; ___] |  | |  | |    |___ |___ 
+
 (defstruct sample x y rows cols)
 
+(defun cells (s) (if (eq (type-of s) 'example) (? s cells) s))
 (defun skip? (s) (search ":" s))
 (defun goal? (s) (and (search "<" s) (search ">" s)))
 (defun num?  (s &aux (x (subseq s 0 1))) 
   (and (string<= "A" x) (string<= x "Z")))
 
-(defmethod add ((s sample) eg)
-  (let ((n -1))
+(defmethod eg ((s sample) eg &aux (n -1))
+  (labels ((make-col (str) (col s str (incf n))))
     (with-slots (x y rows cols) s
       (if cols
-        (push (mapcar #'add cols (cells eg)) rows)
-        (setf cols (mapcar #'(lambda (str) (col s (incf n) str)) (cells eg))))
-      eg)))
+        (setf rows (cons (make-example (mapcar #'add cols (cells eg)) rows))
+        (setf cols       (mapcar #'make-col (cells eg)))))))
 
 (defmethod col ((s sample) at str)
   (let* ((what (if (num? str) #'make-num #'make-sym))
@@ -373,7 +372,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (dofun few.(&aux (f (make-few)))
   "few"
-  (dotimes (i 10000 f) (add f (randi 100))))
+  (print (has (dotimes (i 10000 f) (add f (randi 100))))))
 
 (dofun csv.(&aux head (n 0)) 
   "csv"
@@ -399,3 +398,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (if ($ license) (princ (our-copyright *config*)))
 (demos ($ todo))
 
+" todo
+
+everything is lists EXCEPT examoke  #rows <== both need to be simple vectors
+- rows come our csv as simple vectors
+- stored in  sampples as vector
+"
