@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defmacro dofun (name params  doc  &body body)
   `(progn (pushnew  ',name *tests*) 
-          (defun ,name ,params ,doc (progn (print ',name) ,@body))))
+          (defun ,name ,params ,doc (progn (format t "~a~%~%" ',name) ,@body))))
 ;    ___                                        
 ;  /'___\                                       
 ; /\ \__/       __  __        ___         ____  
@@ -112,17 +112,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; [__   |  |__/ | |\ | | __ [__  
 ; ___]  |  |  \ | | \| |__] ___] 
 
-(defun cccase (s)
-  (let ((s (char s 1)))
-    (equal s (string-upcase s))))
-
-(print 10000)
-
 (defun trim (x) 
   "Remove whitespace front and back."
   (string-trim '(#\Space #\Newline #\Tab) x))
 
-(defun num?(x)
+(defun num!(x)
   "Return a number, if you can. Else return trimmed string."
   (let ((y (ignore-errors (read-from-string x))))
     (if (numberp y) y (let ((x (trim x)))
@@ -152,7 +146,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
   (labels ((cli1 (flag x) (aif (member flag lst :test #'equalp)
                             (cond ((equal x t)   nil) ; flip boolean
                                   ((equal x nil) t)   ; flip boolean
-                                  (t             (or (num? (second it)) x)))
+                                  (t             (or (num! (second it)) x)))
                             x)))
     (dolist (x (our-options our) our)
       (setf (fourth x) (cli1 (second x) (fourth x))))))
@@ -183,18 +177,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; |    |___ |_|_| 
 
 (defstruct (few (:constructor %make-few)) 
-  ok (n 0) (lst (make-array 5 :adjustable t :fill-pointer 0)) (max ($ enough)))
+  ok (n 0) (lst (make-array 5 :fill-pointer 0 :adjustable t)) (max ($ enough)))
 
 (defun make-few (&key init) (adds init (%make-few)))
 
 (defmethod add1 ((f few) x)
   (with-slots (max ok lst n) f
+    (print x)
     (cond ((< (length lst) max)
            (setf ok nil)
            (vector-push-extend x lst))
-          (t (if (< (randf)  (/ n max))
+          (t (print 500) (when (< (randf)  (/ n max))
+               (print (type-of lst))
+               (print (length lst))
                (setf ok nil
-                     (svref lst (floor (randi (length lst)) 1)) x))))))
+                     (svref lst (randi (length lst))) x))))
+    (print x)))
 
 (defmethod div ((f few)) (/ (- (per f .9) (per f .1)) 2.56))
 
@@ -225,6 +223,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
     (setf lo (min x lo)
           hi (max x hi))))
 
+(defmethod div ((n num)) (div (? n all)))
+(defmethod mid ((n num)) (mid (? n all)))
+(defmethod norm ((n num) x)
+  (with-slots (lo hi) n
+    (if (< (- hi lo) 1e-32) 
+      0 
+      (/ (- x lo) (- hi lo)))))
+
 (defmethod dist2 ((n num) a b)
   (cond ((and (eq a #\?) (eq b #\?))  1)
         ((eq a #\?) (setf b (norm n b) 
@@ -234,12 +240,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
         (t          (setf a (norm n a) 
                           b (norm n b))))
   (abs (- a b)))
-
-(defmethod div ((n num)) (div (? n all)))
-(defmethod mid ((n num)) (mid (? n all)))
-(defmethod norm ((n num) x)
-  (with-slots (lo hi) n
-    (if (< (- hi lo) 1e-32) 0 (/ (- x lo)) (- hi lo))))
 ; ____ _   _ _  _ --------------------------------------------------------------
 ; [__   \_/  |\/| 
 ; ___]   |   |  | 
@@ -319,13 +319,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; ___] |  | |  | |    |___ |___ 
 (defstruct sample x y rows cols)
 
-(defmethod add ((s sample) eg)
-  (with-slots (x y rows cols) s
-    (if cols
-      (push (mapcar #'add cols (cells eg)) rows)
-      (setf cols (mapcar #'(lambda (c) (col s c)) (cells eg))))
-    eg))
+(defun skip? (s) (search ":" s))
+(defun goal? (s) (and (search "<" s) (search ">" s)))
+(defun num?  (s &aux (x (subseq s 0 1))) 
+  (and (string<= "A" x) (string<= x "Z")))
 
+(defmethod add ((s sample) eg)
+  (let ((n -1))
+    (with-slots (x y rows cols) s
+      (if cols
+        (push (mapcar #'add cols (cells eg)) rows)
+        (setf cols (mapcar #'(lambda (str) (col s (incf n) str)) (cells eg))))
+      eg)))
+
+(defmethod col ((s sample) at str)
+  (let* ((what (if (num? str) #'make-num #'make-sym))
+         (now  (funcall what :txt str :at at)))
+    (unless (skip? str) (if (goal? str)
+                          (push now (? s y)) 
+                          (push now (? s x))))
+    now))
 ;                             __                
 ;   ___ ___          __      /\_\        ___    
 ; /' __` __`\      /'__`\    \/\ \     /' _ `\  
@@ -344,7 +357,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
     (let* ((what (string-upcase (string what)))
            (txt  (string-upcase (string one)))
            (doc  (documentation one 'function)))
-      (when (or (not what) (search  what txt))
+      (when (or (not what) (search what txt))
         (setf *config* (cli (make-our)))
         (multiple-value-bind (_ err)
           (ignore-errors (funcall one))
@@ -360,13 +373,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (dofun few.(&aux (f (make-few)))
   "few"
-  (print (has (dotimes (i 10000 f) (add f (randi 100))))))
+  (dotimes (i 10000 f) (add f (randi 100))))
 
-(dofun csv.(&aux head) 
+(dofun csv.(&aux head (n 0)) 
   "csv"
   (with-csv (line "../data/auto93.csv") 
+    (if (> (incf n) 10) (return-from csv.))
     (if head
-      (format t "~s~%" (mapcar #'num? line))
+      (format t "~s~%" (mapcar #'num! line))
       (setf head line))))
 
 (dofun num.(&aux (n (make-num)))
@@ -383,5 +397,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (setf *config* (cli (make-our)))
 (if ($ help) (print *config*))
 (if ($ license) (princ (our-copyright *config*)))
-;(demos ($ todo))
+(demos ($ todo))
 
