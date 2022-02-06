@@ -82,6 +82,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defmacro dofun (name params  doc  &body body)
   `(progn (pushnew  ',name *tests*) 
           (defun ,name ,params ,doc (progn (format t "~a~%~%" ',name) ,@body))))
+
+(defmacro any (sequence)
+   `(elt ,sequence (randi (length ,sequence))))
 ;    ___                                        
 ;  /'___\                                       
 ; /\ \__/       __  __        ___         ____  
@@ -127,9 +130,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
   (aif (position sep s :start n)
     (cons (subseq s n it) (subseqs s sep (1+ it)))
     (list (subseq s n))))
+
 ; ____  ____  ------------------------------------------------------------------
 ; |  |  [__   
-; |__| .___] .
+; |__| .___]  
 
 (defun args () 
   "Return list of command line arguments."
@@ -140,10 +144,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
   "Send to `fn` one list from each line."
   (with-open-file (str file)
     (loop 
-      (funcall 
-        fn 
-        (coerce (subseqs (or (read-line str nil) 
-                             (return-from csv))) 'simple-vector)))))
+      (funcall fn (subseqs (or (read-line str nil) (return-from csv)))))))
 
 (defun cli (&optional (our (make-our)) (lst (args)))
   "Maybe update `our` with data from command line."
@@ -192,31 +193,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; |    |___ |_|_| 
 
 (defstruct (few (:constructor %make-few)) 
-  ok (n 0) (lst (make-array 5 :fill-pointer 0 :adjustable t)) (max ($ enough)))
+  ok (n 0) (%has (make-array 5 :fill-pointer 0 :adjustable t)) (max ($ enough)))
 
 (defun make-few (&key init) (adds init (%make-few)))
 
+(defun per (few &optional (p .5) &aux (all (has few)))
+  (elt (floor (* p (length (? few %has)))) (? few %has)))
+
 (defmethod add1 ((f few) x)
-  (with-slots (max ok lst n) f
-    (cond 
-      ((< (length lst) max)
-       (setf ok nil)
-       (vector-push-extend x lst))
-      (t (when (< (randf)  (/ n max))
-           (setf ok nil
-                 (elt lst (randi (length lst))) x))))))
+  (with-slots (max ok %has n) f
+    (cond ((< (length %has) max) (setf ok nil) (vector-push-extend x %has))
+          ((< (randf) (/ n max)) (setf ok nil) (setf (any %has) x)))))
 
 (defmethod div ((f few)) (/ (- (per f .9) (per f .1)) 2.56))
+(defmethod mid ((f few)) (per f .5))
 
 (defmethod has ((f few))
-  (with-slots (ok lst) f
-    (unless ok (setf lst (sort lst #'<)
-                     ok  t))
-    lst))
-
-(defmethod mid ((f few)) (per f .5))
-(defmethod per ((f few) &optional (p .5) &aux (all (has f)))
-  (aref (? f lst) (floor (* p (length (? f lst))))))
+  (with-slots (ok %has) f
+    (unless ok (setf ok t) (sort %has #'<))
+    %has))
 ; _  _ _  _ _  _ ---------------------------------------------------------------
 ; |\ | |  | |\/| 
 ; | \| |__| |  | 
@@ -308,8 +303,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defstruct (example (:constructor %make-example)) cells)
 
-(defmethod cell ((i example) col) 
-  (svref (? i cells) (? col at)))
+(defun cell (eg col)  (nth (? col at) (? eg cells)))
+
 
 (defmethod lt ((i example) (j example) cols) 
   (let ((s1 0) (s2 0) (n (length cols)))
@@ -335,12 +330,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defun num?  (s &aux (x (subseq s 0 1))) 
   (and (string<= "A" x) (string<= x "Z")))
 
-(defmethod eg ((s sample) eg &aux (n -1))
-  (labels ((make-col (str) (col s str (incf n))))
-    (with-slots (x y rows cols) s
-      (if cols
-        (setf rows (cons (make-example (mapcar #'add cols (cells eg)) rows))
-        (setf cols       (mapcar #'make-col (cells eg)))))))
+(defmethod eg ((s sample) (eg  example)) (eg s (? eg cells)))
+(defmethod eg ((s sample) (eg  cons))
+  (let ((n -1))
+    (labels ((make-col (str) (col s str (incf n))))
+      (with-slots (x y rows cols) s
+        (if cols
+          (push (make-example (mapcar #'add cols (cells eg))) rows)
+          (setf cols          (mapcar #'make-col (cells eg))))))))
 
 (defmethod col ((s sample) at str)
   (let* ((what (if (num? str) #'make-num #'make-sym))
@@ -348,8 +345,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
     (unless (skip? str) (if (goal? str)
                           (push now (? s y)) 
                           (push now (? s x))))
-    now))
-;                             __                
+    now))
+;                             __                
 ;   ___ ___          __      /\_\        ___    
 ; /' __` __`\      /'__`\    \/\ \     /' _ `\  
 ; /\ \/\ \/\ \    /\ \L\.\_   \ \ \    /\ \/\ \ 
@@ -403,7 +400,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; ____ ___ ____ ____ ___ -------------------------------------------------------
 ; [__   |  |__| |__/  |  
 ; ___]  |  |  | |  \  |  
-;                        
+
 (setf *config* (cli (make-our)))
 (if ($ help) (print *config*))
 (if ($ license) (princ (our-copyright *config*)))
