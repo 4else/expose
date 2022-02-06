@@ -158,8 +158,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; |\/| | [__  |    
 ; |  | | ___] |___ 
  
- (let ((_id 0)) 
-   (defun id () (incf _id)))
+(let ((_id 0)) 
+  (defun id () (incf _id)))
+
+(defun timeit (fun &aux (tick internal-time-units-per-second))
+  (let ((b4 (get-internal-real-time)))
+    (funcall fun)
+    (float (/ (- (get-internal-real-time) b4) tick))))
+
+(defun nshuffle (sequence)
+  (loop for i from (length sequence) downto 2
+        do (rotatef (elt sequence (random i))
+                    (elt sequence (1- i))))
+  sequence)
 ; ____ _  _ ____ ---------------------------------------------------------------
 ; |  | |  | |__/ 
 ; |__| |__| |  \ 
