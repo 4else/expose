@@ -16,6 +16,7 @@
 Lets have some fun.")
   (options 
     '((enough  "-e" "enough items for a sample"  512)
+      (far     "-F" "far away                 "  .9)
       (file    "-f" "read data from file      "  "../data/auto93.csv")
       (help    "-h" "show help                "  nil)
       (license "-l" "show license             "  nil)
@@ -367,8 +368,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 
 (defun far (s eg1 rows)
   (labels ((fun (eg2) (list eg2 (dist eg1 eg2 (? s x)))))
-    (sort (mapcar #'fun rows) #'< :key #'seconds)))
-
+    (elt (sort (mapcar #'fun rows) #'< :key #'second)
+         (floor (* ($ far) (length rows))))))
   
 ;                             __                
 ;   ___ ___          __      /\_\        ___    
