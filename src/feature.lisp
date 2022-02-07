@@ -203,6 +203,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defun per (few &optional (p .5) &aux (all (has few)))
   (elt (? few %has) (floor (* p (length (? few %has))))))
 
+(defmethod print-object ((f few) s)
+  (with-slots (ok n max %has) f
+    (print-object `(FEW ::ok ,ok ::n ,n ::%has ,(length %has) ::max ,max) s)))
+
 (defmethod add1 ((f few) x)
   (with-slots (max ok %has n) f
     (cond ((< (length %has) max) (setf ok nil) (vector-push-extend x %has))
@@ -231,7 +235,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
     (add all x)
     (incf n)
     (setf lo (min x lo)
-          hi (max x hi))))
+          hi (max x hi))
+    x))
 
 (defmethod div ((n num)) (div (? n all)))
 (defmethod mid ((n num)) (mid (? n all)))
@@ -265,14 +270,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
     (let ((now (inca x seen)))
       (if (> now most)
         (setf most now
-              mode x)))))
+              mode x)))
+    x))
 
-(defmethod dist2 ((c sym) x y) (if (eql x y) 0 1))
+(defmethod dist2 ((s sym) x y) (if (eql x y) 0 1))
 
-(defmethod div ((f sym)) 
-  (labels ((p    (x) (/ (cdr x) (? f n)))
+(defmethod div ((s sym)) 
+  (labels ((p    (x) (/ (cdr x) (? s n)))
            (plog (x) (* -1 (p x) (log (p x) 2))))
-    (reduce '+ (mapcar #'plog (? f seen)))))
+    (reduce '+ (mapcar #'plog (? s seen)))))
 
 (defmethod mid ((f sym)) (? f mode))
 ; ____ _    _  _ ____ ----------------------------------------------------------
@@ -282,7 +288,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defun add (it x)
   (unless (eq x #\?)
     (incf (? it n))
-    (add1 it x))
+    (setf x (add1 it x)))
   x)
 
 (defmethod adds (lst s) 
@@ -291,7 +297,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (defun dist1 (col x y) 
   (if (and (eq x #\?) (eq y #\?)) 
       1 
-      (dist2 x y)))
+      (dist2 col x y)))
 
 
 
@@ -304,10 +310,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 ; |___  \/  |__| |\/| |__] |    |___ 
 ; |___ _/\_ |  | |  | |    |___ |___ 
 
-(defstruct (example (:constructor %make-example)) cells)
+(defstruct example cells)
 
-(defun cell (eg col)  (nth (? col at) (? eg cells)))
-
+(defun cell (eg col)  (elt (? eg cells) (? col at)))
 
 (defmethod lt ((i example) (j example) cols) 
   (let ((s1 0) (s2 0) (n (length cols)))
@@ -318,37 +323,53 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
         (decf s2 (exp (* (? col w) (/ (- b a) n))))))))
 
 (defmethod dist ((i example) (j example) cols)
-  (let ((d 0) (n (length cols)))
+  (let ((d 0) 
+        (n (length cols)))
     (dolist (col cols (expt (/ d n) (/ 1 ($ p))))
       (incf d (dist1 col (cell i col) (cell j col))))))
 ; ____ ____ _  _ ___  _    ____ -----------------------------------------------
 ; [__  |__| |\/| |__] |    |___ 
 ; ___] |  | |  | |    |___ |___ 
 
-(defstruct sample x y rows cols)
+(defstruct (sample (:constructor %make-sample)) x y rows cols)
 
-(defun cells (s) (if (eq (type-of s) 'example) (? s cells) s))
+(defun make-sample (&optional init)
+  (let ((s  (%make-sample))
+        (fn #'identity))
+    (typecase init
+      (null   s)
+      (cons   (dolist   (eg1 init s) (eg s eg1)))
+      (string (with-csv (eg1 init s) 
+                           (eg s (mapcar fn eg1))
+                           (setf fn #'num!))))))
+
 (defun skip? (s) (search ":" s))
 (defun goal? (s) (and (search "<" s) (search ">" s)))
 (defun num?  (s &aux (x (subseq s 0 1))) 
   (and (string<= "A" x) (string<= x "Z")))
 
-(defmethod eg ((s sample) (eg  example)) (eg s (? eg cells)))
-(defmethod eg ((s sample) (eg  cons))
-  (let ((n -1))
-    (labels ((make-col (str) (col s str (incf n))))
-      (with-slots (x y rows cols) s
-        (if cols
-          (push (make-example (mapcar #'add cols (cells eg))) rows)
-          (setf cols          (mapcar #'make-col (cells eg))))))))
-
-(defmethod col ((s sample) at str)
+(defmethod col ((s sample) str at)
   (let* ((what (if (num? str) #'make-num #'make-sym))
          (now  (funcall what :txt str :at at)))
     (unless (skip? str) (if (goal? str)
                           (push now (? s y)) 
                           (push now (? s x))))
-    now))
+    now))
+
+(defmethod eg ((s sample) (eg  example)) (eg s (? eg cells)))
+(defmethod eg ((s sample) (eg  cons))
+  (let ((n -1))
+    (labels ((make-col (str) (col s (trim str) (incf n))))
+      (with-slots (x y rows cols) s
+        (if cols
+          (push (make-example :cells (mapcar #'add cols eg)) rows)
+          (setf cols                 (mapcar #'make-col eg)))))))
+
+(defun far (s eg1 rows)
+  (labels ((fun (eg2) (list eg2 (dist eg1 eg2 (? s x)))))
+    (sort (mapcar #'fun rows) #'< :key #'seconds)))
+
+  
 ;                             __                
 ;   ___ ___          __      /\_\        ___    
 ; /' __` __`\      /'__`\    \/\ \     /' _ `\  
@@ -400,6 +421,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."))
 (dofun sym.(&aux (s (make-sym)))
   "streams of symbols"
   (print (div (adds (coerce "aaaabbc" 'list) s))))
+
+(dofun sample. (&aux s)
+  (print (? (make-sample ($ file)) x)))
+
+(dofun dists.(&aux (s (make-sample ($ file))))
+  (let (lst
+         (eg1 (first (? s rows)))) 
+    (labels ((fun (eg2) (list eg2 (dist eg1 eg2 (? s x)))))
+      (setf lst (sort (mapcar #'fun (? s rows)) #'< :key #'second))
+      (print (elt lst 0))
+      (print (elt lst (1- (length lst)))))))
 ; ____ ___ ____ ____ ___ -------------------------------------------------------
 ; [__   |  |__| |__/  |  
 ; ___]  |  |  | |  \  |  
