@@ -3,6 +3,9 @@
 
 # asdas
 
+talk mrore about alogirhms that explore  range pof choices 
+rather that just promise to generate a signle output.
+:e 
 sdasdasdasdas
 asdasasasas 
 

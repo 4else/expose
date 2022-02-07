@@ -1,9 +1,11 @@
 ; vim: ts=2 et sw=2 et:
 ;;;; macros --------------------------------------------------------------------
+#|
 (defmacro aif (test yes &optional no) 
   "Anaphoric if (traps result of conditional in `it`)."
   `(let ((it ,test)) (if it ,yes ,no)))
 
+|#
 (defmacro whale (expr &body body) 
   "Anaphoric while (traps result of conditional in `a`)."
   `(do ((a ,expr ,expr)) ((not a)) ,@body))

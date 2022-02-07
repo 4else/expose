@@ -1,10 +1,23 @@
-tests:
+tests: ## run tests
 	ls *.lua |entr -c ../etc/tasks.sh
+
+%.md: %.lisp
+	gawk '{gsub(/(#\||\|#)/,""); print }'  $<
+
+.PHONY: help
+
+help:
+	@echo $z
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
+	| sort \
+	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 
 pdfs: ../docs/small.pdf
 
-f=relax/lisp
+f=relax.lisp
+
+
 
 ../docs/%.pdf : %.lisp ok
 	a2ps  -BjR --line-numbers=1                       \
@@ -16,7 +29,7 @@ f=relax/lisp
 	rm $@.ps
 	git add $@
 
-html:
+html: ## show html
 	gawk -f ../etc/lua2md.awk $f > ../docs/$f.md
 	pandoc -s --toc --toc-depth=6 -V fontsize=9pt  -c lua.css --metadata title="$f" ../docs/$f.md -o ../docs/$f.html
 

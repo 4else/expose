@@ -43,7 +43,7 @@ alias ls="ls -G"
 alias repl="rlwrap sbcl --noinform " 
 alias tmux="tmux -f $here/etc/dottmux"
 alias vi="vim -u $here/etc/dotvimrc "
-alias emacs="emacs -Q -q --load '$here/etc/dotemacs' "
+alias emaxs="emacs  -nw  --load \"$here/etc/dotemacs\" "
 alias vims="vim +PluginInstall +qall"         
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
