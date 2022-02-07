@@ -1,4 +1,3 @@
-; vim: filetype=lisp :
 #|
 
 # asdas
@@ -6,4 +5,9 @@
 sdasdasdasdas
 asdasasasas |#
 
-(defun a (x) x)
+    (defun a (x) x)   #|
+
+
+# asdas
+
+asdas asdas |#
