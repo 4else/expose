@@ -1,11 +1,11 @@
 #|
-## Something else (about AI)
+## "Something else" you need to know (about AI)
 
-<img src="/etc/img/parento.png" align=right width=300>
+<img src="/etc/img/errors.png" align=right width=300>
 
 This book is about algorithms that seek
 "something else"; i.e. that find all the things
-that you should be seeing, including those that you might be missing.
+that you should be seeing, even those that you might be missing.
 It 
 is reversed engineered from 20 years of data mining,
 hundreds of research papers, and the work of 20 Ph.D. students[^phd].
@@ -21,11 +21,7 @@ I challenge you to recode all this in your favorite language
 (a task that takes my students around seven weekly homeworks). Also,
 since not all the world
 
-[^phd]: In order: Scott Chen, David Owen, 
-Ashutosh R. Nandeshwar, Ekrem Kocaguneli,
-Joe Krall, Sayyad, Fayola Peters, Greg Gay, Wei Fu, 
-Vivek Nair,  Any sensible here comes from them (and  all mistakes are mine).
-
+[^phd]: **Current:** Leonardo Arias, Joymallya Chakraborty, Xiao Ling, Suvodeep Majumder, Andre Motta, Kewen Peng, Rui Shu, Xueqi(Sherry) Yang, Rahul Yedida; **Past:** Amritanshu Agrawal, Shrikanth Chandrasekaran , Jianfeng Chen , Scott  Chen, Wei Fu, Ekrem Kocaguneli  , Joe Krall, Rahul Krishna, Vivek Nair, Ashutosh Nandeshwar, David Owen, Fayola Peters, Abdel Salam Sayyad, Huy Tu, Tianpei (Patrick) Xia, Zhe Yu. **Honorable Mentions**: Gregory Gay.  Anything sensible in these pages  comes from them (and  all mistakes are mine).
 
 Such algorithms may
 surprise or delight you. Conversely, they may
