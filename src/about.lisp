@@ -1,4 +1,50 @@
 #|
+AI:  something else you need to knwow
+
+not what we are but what else can we be
+
+got to know where you are and where else you can be
+
+a bird in the hand is worth two in bush? really? 
+there are 3 birds? and 67% of
+them live in something called a bush?
+if the world divides into places where
+different birds  live and work live in different places, 
+how to ensure that what
+we build for (e.g.) the birds out of the bush, 
+doesn't hurt everyone else
+
+pragmatics:
+cant be constantly searching all the time- never 
+get anything done (you cant grow the tree unless
+you assume there is soil).
+you need a  sampling policy (that does not take up
+too many resources)
+to know when you might want to change things. 
+
+possibilites:
+happliyl the world supports ways to do all the above.
+Given $P$ possibitiles, each with $N$ options,
+the
+space of reacable options is not _N<sup>P</sup>_ hard.
+Rather, the shape of the world
+is like a ribbon swirling in the air. While
+that shape is intricate and constantly changing,
+all that matters is 
+the paths of the ribbon matter some the rest of the space
+is empty. So to make sense of the world,
+learn the shapes of the ribbon but ignore the rest [^warn].
+
+[^warn]: For several years, I explored the safety
+critical properties of state machines using
+tools that generated numerous random instances of
+those machines [^b]. I stopped doing that
+after a graph-theory specialist told me
+to stop that saying "the real world is a special
+case; most real world models live in a very small corner
+of the space of total models."
+
+[^b]: asdas
 
 After decades of research, can we simplify AI?  What can we do _now_
 that clarifies, generalizes and simplifies what we were doing _then_?
