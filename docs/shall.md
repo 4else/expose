@@ -7,7 +7,7 @@
 <a href="asdas">issues</a> • 
 <a href="asdas">chat</a>  
 </p><p align=center>
-<a href="/README.md#top"><img src="/etc/img/slice.png" width=250></a><br>
+<a href="/README.md#top"><img src="/etc/img/expose.png" width=250></a><br>
 <img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet">
 <img src="https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange">
 <a href="https://github.com/4duo/duo/actions"><img src="https://github.com/4duo/duo/workflows/tests/badge.svg"></a><br>
