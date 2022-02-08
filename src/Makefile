@@ -1,8 +1,15 @@
 tests: ## run tests
 	ls *.lua |entr -c ../etc/tasks.sh
 
-%.md: %.lisp
-	gawk '{gsub(/(#\||\|#)/,""); print }'  $<
+MDS = ../docs/$(subst .lisp ,.md ../docs/,$(shell ls *.lisp))
+
+mds : $(subst .lisp,.md,$(MDS))
+
+../docs/%.md: %.lisp Makefile 
+	@echo in $< out $@
+	@(cat ../etc/head.md ; \
+	gawk 'BEGIN {print "\n\n# '$<'\n\n"} NR==1{next} {gsub(/(#\||\|#)/,""); print }' $<) > $@
+	@git  add $@
 
 .PHONY: help
 

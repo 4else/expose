@@ -1,7 +1,11 @@
-; vim: et :
-#|# asdasdsasa
 
-asdaasaasasasas #|
+
+# shall.lisp
+
+
+# asdasdsasa
+
+asdaasaasasasas 
 
 
     (defvar *tests* nil)
@@ -21,14 +25,14 @@ asdaasaasasasas #|
               (incf *fails* (if err 1 0))
               (if err
                 (format t "~&~a [~a] ~a ~a~%" "FAIL" one doc err)
-                (format t "~&~a [~a] ~a~%"    "PASS" one doc)))))))  #|
+                (format t "~&~a [~a] ~a~%"    "PASS" one doc)))))))  
 
 # asdasddsa
 
 asdas
 saasasads
 
-asaassaas |#
+asaassaas 
     
     (defun make () (load "lib"))
     
