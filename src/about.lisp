@@ -7,37 +7,66 @@ This book is about algorithms that seek
 that you should be seeing, but might be missing.
 It is reversed engineered from 20 years of data mining,
 hundreds of research papers, and the work of 20 Ph.D. students[^phd].
-It offers a toolkit  that is remarkable small and fast-- so
+
+We offer those algorithms in   toolkit  that is remarkable small and fast. In less
+than a thousand lines of code, these tools complete tasks analogous to a wide range of
+AU tasks [^tasks]
+
+explanations algorithms, -- so
 much so that, possibly,
 some prior work tried complex solutions, _without_
 comparing them against something simpler.
+
+
+[^tasks]:
+  Classification and regression and planning and explanation;  
+  clustering; random projections;  feature selection;  instance selection; 
+  tree-structured Parzen estimator, 
+  semi-supervised learners, anomaly detectors,
+  multi-objective optimization (including sequential model optimization) and hyper-parameter optimizers. 
+  Do not be alarmed if you do not know what these are, yet.  You will.  
 
 These pages offers  high-level notes on what is going
 on here, plus some historical perspectives. 
 To really get inside this material, I offer you two challenges:
 
-1.  Recode everything here  in your favorite language (a task that takes my students around seven weekly homeworks)
+1. Recode everything here  in your favorite language (a task that takes my students around seven weekly homeworks)
 2. Do some of the [inclusiveness training exercises](include.md).
 
-[^phd]: **Current:** Leonardo Arias, Joymallya Chakraborty, Xiao Ling, Suvodeep Majumder, Andre Motta, Kewen Peng, Rui Shu, Xueqi(Sherry) Yang, Rahul Yedida; **Past:** Amritanshu Agrawal, Shrikanth Chandrasekaran , Jianfeng Chen , Scott  Chen, Wei Fu, Ekrem Kocaguneli  , Joe Krall, Rahul Krishna, Vivek Nair, Ashutosh Nandeshwar, David Owen, Fayola Peters, Abdel Salam Sayyad, Huy Tu, Tianpei (Patrick) Xia, Zhe Yu. **Honorable Mentions**: Gregory Gay.  Anything sensible in these pages  comes from them (and  all mistakes are mine).
+[^phd]: **Current:** Leonardo Arias, Joymallya Chakraborty, 
+  Xiao Ling, Suvodeep Majumder, Andre Motta, Kewen Peng, 
+  Rui Shu, Xueqi(Sherry) Yang, Rahul Yedida; 
+  **Past:** Amritanshu Agrawal, Shrikanth Chandrasekaran, 
+  Jianfeng Chen , Scott  Chen, Wei Fu, Ekrem Kocaguneli, 
+  Joe Krall, Rahul Krishna, Vivek Nair, Ashutosh Nandeshwar, 
+  David Owen, Fayola Peters, Abdel Salam Sayyad, Huy Tu, 
+  Tianpei (Patrick) Xia, Zhe Yu. **Honorable Mentions**: 
+  Gregory Gay.  Anything sensible in these pages  comes from them (and  all mistakes are mine).
 
 ## Seeking "Something Else"
 
+I write algorithms that search large spaces of options looking for ways to satisfy,
+as far as possible, a diverse set of goals.
 Such algorithms may
-surprise or delight you. Conversely, they may
-expose
-dangers that should alarm you. They are tools
+may expose alarming dangers but they can also 
+return surprising or delight results. 
+They are nondeterministic algorithms, which is another way of saying they make lots of guesses.
+Sure, that means they can make mistakes but it also means they can find their ways into corners
+that are otherwise overlooked. As Vilfredo Pareto says:
+
+> Give me the fruitful error any time, full of seeds, bursting with its own corrections. You can keep your sterile truth for yourself. 
+
+Hence are tools
 for planning how to improve things and for monitoring
-what might make things worse. But hopefully, they
+what might make things worse. 
+
+And  hopefully, they
 will change what you think about the world
 since, in this era of great change,
 we should ask
 "ask not what you can do to your data but what
-your data can do yo dou."
+your data can do for you".
 
-They  or warn you of impending may not confirm your world
-view. Rather, they might surprise or shock you. We run
-such a
 
 to find and util"something else"
 Suppose you wanted to teach responsible algorithm design to computer
@@ -244,6 +273,7 @@ Herbert Simon [^si96] has more to say choices:
 [^no18]: S.U.Noble, _Algorithms of Oppression_.    New York University Press, 2018. 
 [^nw82]: A. Newell. The Knowledge Level. Artificial Intelligence, 18(1):87-127, 1982.
 [^si96]: Simon, Herbert A. 1996. The Sciences of the Artificial (3rd ed.). Cambridge, MA: MIT Press.
+[^socialdilemna] The Social Dilemma, 2020, Docudrama directed by Jeff Orlowski; written by Jeff Orlowski, Davis Coombe, and Vickie Curtis. 
 [^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).  FSE 2015. 
 
 |#
