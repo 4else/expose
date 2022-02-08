@@ -50,7 +50,7 @@ things you might be missing.
   If you don't want to watch it all (59 minutes), then just go to minute 53:30
   
 
-> <img width=25 src="/etc/img/66.png">A year ago I was here in D.C. at a meeting, the Swedish embassy
+> <img width=35 src="/etc/img/66.png"> A year ago I was here in D.C. at a meeting, the Swedish embassy
 and I was on a panel and we were talking about all these problems
 and how horrible it was and people kept asking  maybe do this and
 I was like you can't do this. Oh, this will work and no, that's too
@@ -70,7 +70,7 @@ just give up. You have to, you know, you have to chip away at these
 problems and I agree. We're not going to solve it with one particular
 thing. We need to chip away at this from all sides that's why it's
 important to have a diverse group of researchers to look at how we
-build technology <img width=25 align=right src="/etc/img/99.png">that's more resistant. How do we train and educate
+build technology <img width=35 align=right src="/etc/img/99.png">that's more resistant. How do we train and educate
 people to become more resilient and sort of interact in these places
 with more -- in more productive ways.
 
