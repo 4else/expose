@@ -3,7 +3,7 @@
 
   (progn
    (setq inhibit-startup-message t)
-
+(setq create-lockfiles nil)
    (setq make-backup-files nil)  
    (global-font-lock-mode t)
    (xterm-mouse-mode t)

@@ -19,57 +19,18 @@
 
 
 
-# shall.lisp
+# about.lisp
 
 
- asdasad 
 
+After decades of research, can we simplify AI? 
+What can  we clarify and generalize and simplify?  What can we do better?
 
-```lisp
-(defvar *tests* nil)
-(defvar *fails* 0)
+To answer that question, we revisit 
+Allen Newell's [^nw82] 1981 idea of the  _Knowledge Level_.  insights
 
-(defmacro deftest (name params  doc  &body body)
-  `(progn (pushnew  ',name *tests*) 
-          (defun ,name ,params ,doc ,@body)))
+## References
 
-(defun demos (&optional what)
-  (dolist (one *tests*)
-    (let ((doc (documentation one 'function)))
-      (when (or (not what) (eql one what))
-        (setf *config* (cli (make-our)))
-        (multiple-value-bind (_ err)
-          (ignore-errors (funcall one))
-          (incf *fails* (if err 1 0))
-          (if err
-            (format t "~&~a [~a] ~a ~a~%" "FAIL" one doc err)
-            (format t "~&~a [~a] ~a~%"    "PASS" one doc)))))))  
-
-```
-
-
-# asdasddsa
-
-asdas
-saasasads
-
-asaassaas 
-
-```lisp
-
-(defun make () (load "lib"))
-
-(deftest _while(&aux (x '(1 2 3)))
-  (whale (pop x) (print a)))
-
-(deftest _csv() 
-  (let (head)
-    (with-csv (line "../data/auto93.csv") 
-      (if head
-        (format t "~s~%" (mapcar #'reads line))
-        (setf head line)))))
-
-
-```
+[^nw82]: A. Newell. The Knowledge Level. Artificial Intelligence, 18(1):87-127, 1982.
 
 

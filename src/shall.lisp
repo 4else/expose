@@ -1,7 +1,5 @@
-; vim: et :
-#|# asdasdsasa
 
-asdaasaasasasas #|
+#| asdasad |#
 
     (defvar *tests* nil)
     (defvar *fails* 0)
