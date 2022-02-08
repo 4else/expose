@@ -45,11 +45,12 @@ things you might be missing.
 
 ## :triangular_flag_on_post: Group Exercises
 
-- Short exercise
+- Short exercise:
   - With a group of 6 to 20  friends, play "What is  privilege" game. Ask the [questions below](#35), letting the questions make you step forward or backward [^zoom].
   - Afterwards, form a circle and watch [this video](https://www.youtube.com/watch?v=hD5f8GuNuGQ).
   - Then, working clockwise around the circle, take turns to offer 2-3 sentences on your experience with the game (or say "pass" if you do not want to talk; or if what you want to say has been said before).
 - Longer exercise (about a week, multiple sessions):
+  - This exercise arose from  discussions with [Dr. Margaret Burnett](https://web.engr.oregonstate.edu/~burnett/).
   - Design tests for a system using a  _cognitive walk through_.  According to [Wikipedia](https://en.wikipedia.org/wiki/Cognitive_walkthrough): cognitive walkthroughs are a usability inspection method used to identify usability issues in interactive systems, focusing on how easy it is for new users to accomplish tasks with the system. A cognitive walkthrough is task-specific, whereas heuristic evaluation takes a holistic view to catch problems not caught by this and other usability inspection methods. 
   - Extract _06 - CS-SE - Fall 2020 - GenderMag Exploration.docx_ from [this on-line zip](https://figshare.com/articles/online_resource/ICER_2021_Supplemental_Documents/14294744);
   - In a group of four or more, consider some enhancment to a digital phone app (for details, see the extracted document).
@@ -57,6 +58,7 @@ things you might be missing.
   - At the end, everyone write separately the tests you would propose.
   - Finally, meet up look for differences and similarities in your proposed tests. 
 - Written report (about 2-3 weeks of work): meet as a group and study five of  the standard undergraduate subjects taught in a computer science program (second year, and higher):
+  - This exercise arose from  discussions with [Dr. Angela Smith](https://angeladrsmith.com/) and [Dr. Brittany Johnson](https://cs.gmu.edu/~johnsonb/)https://cs.gmu.edu/~johnsonb/).
   - What harm could befall people based on the decisions about the systems discussed in those classes?
   - How to mitigate that potential harms?
   - How to redesign the teaching of those subjects such that more power is granted to the people using the systems discussed in those classes.
