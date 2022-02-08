@@ -41,8 +41,7 @@ some prior work tried complex solutions, _without_
 comparing them against something simpler.
 
 
-[^tasks]:
-  Classification and regression and planning and explanation;  
+[^tasks]: Classification and regression and planning and explanation;  
   clustering; random projections;  feature selection;  instance selection; 
   tree-structured Parzen estimator, 
   semi-supervised learners, anomaly detectors,
