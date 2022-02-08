@@ -13,19 +13,19 @@ things you might be missing.
 
 <br clear=all>
 
-## Listen
-
-- K. Adams, [Timnit Gebru envisions a future for smart, ethical AI](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) MarketplaceTech, 2021
-- K. Starbird [Understanding online disinformation and its spread]( https://www.youtube.com/watch?v=9gzo-1jK-TA). 
-  If you don't want to watch it all (59 minutes), then just go to minute 53:30
-  - A year ago I was here in D.C. at a meeting, the Swedish embassy and I was on a panel and we were talking about all these problems and how horrible it was and people kept asking  maybe do this and I was like you can't do this. Oh, this will work and no, that's too simple, and it won't work because of this and we shot down every idea that anyone in the crowd had and we basically were like we're doomed.  And there was this ambassador in the back of the room, it turns out, I just figured out who it was and I told him the story and he was like that was me. Daniel Freed. And he came to the front of the room and he scolded us and said how dare you get up here and do this to us. We've had hard problems before. We had the Cold War and we were at the -- nuclear war was like something that we were in fear of everyday. And we had hard problems and no one said, oh, we can't solve it. We chipped away at the problems. We worked at it from all these different sides and eventually those problems were gone and now we have a whole new set of problems but you can't just give up. You have to, you know, you have to chip away at these problems and I agree. We're not going to solve it with one particular thing. We need to chip away at this from all sides that's why it's important to have a diverse group of researchers to look at how we build technology that's more resistant. How do we train and educate people to become more resilient and sort of interact in these places with more -- in more productive ways.
-
 ## Read
 
 - D . Noble, _American By Design_. Knopf, 1977.
 - S.U.Noble, _Algorithms of Oppression_.    New York University Press, 2018. 
 - C. O'Neil, _Weapons of Math Destruction_. Crow, 2016
 - L. Winner, [Do Artifacts have Politics?](https://faculty.cc.gatech.edu/~beki/cs4001/Winner.pdf), 1980. Daedelus (109)1, pp121-136 
+
+## Listen
+
+- K. Adams, [Timnit Gebru envisions a future for smart, ethical AI](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) MarketplaceTech, 2021
+- K. Starbird [Understanding online disinformation and its spread]( https://www.youtube.com/watch?v=9gzo-1jK-TA). 
+  If you don't want to watch it all (59 minutes), then just go to minute 53:30
+  - A year ago I was here in D.C. at a meeting, the Swedish embassy and I was on a panel and we were talking about all these problems and how horrible it was and people kept asking  maybe do this and I was like you can't do this. Oh, this will work and no, that's too simple, and it won't work because of this and we shot down every idea that anyone in the crowd had and we basically were like we're doomed.  And there was this ambassador in the back of the room, it turns out, I just figured out who it was and I told him the story and he was like that was me. Daniel Freed. And he came to the front of the room and he scolded us and said how dare you get up here and do this to us. We've had hard problems before. We had the Cold War and we were at the -- nuclear war was like something that we were in fear of everyday. And we had hard problems and no one said, oh, we can't solve it. We chipped away at the problems. We worked at it from all these different sides and eventually those problems were gone and now we have a whole new set of problems but you can't just give up. You have to, you know, you have to chip away at these problems and I agree. We're not going to solve it with one particular thing. We need to chip away at this from all sides that's why it's important to have a diverse group of researchers to look at how we build technology that's more resistant. How do we train and educate people to become more resilient and sort of interact in these places with more -- in more productive ways.
 
 ## Group Exercises
 
