@@ -5,10 +5,9 @@ MDS = ../docs/$(subst .lisp ,.md ../docs/,$(shell ls *.lisp))
 
 mds : $(subst .lisp,.md,$(MDS))
 
-../docs/%.md: %.lisp Makefile 
+../docs/%.md: %.lisp Makefile ../etc/head.md ../etc/md.awk
 	@echo in $< out $@
-	@(cat ../etc/head.md ; \
-	gawk 'BEGIN {print "\n\n# '$<'\n\n"} NR==1{next} {gsub(/(#\||\|#)/,""); print }' $<) > $@
+	@(cat ../etc/head.md; gawk -f ../etc/md.awk $< ) > $@
 	@git  add $@
 
 .PHONY: help

@@ -1,6 +1,6 @@
 
 
-# call.lisp
+# 'title'
 
 
 ;;;; macros --------------------------------------------------------------------
@@ -42,14 +42,24 @@
 (defun num?(x)
   "Return a number, if you can. Else return trimmed string."
   (let ((y (ignore-errors (read-from-string x))))
-    (if (numberp y) y (let ((x (trim x)))
-                        (if (equal x "?") #\? x)))))
+
+```lisp
+(if (numberp y) y (let ((x (trim x)))
+                    (if (equal x "?") #\? x)))))
+
+```
+
 
 (defun subseqs (s &optional (sep #\,) (n 0))
   "Separate string on `sep`."
   (aif (position sep s :start n)
-    (cons (subseq s n it) (subseqs s sep (1+ it)))
-    (list (subseq s n))))
+
+```lisp
+(cons (subseq s n it) (subseqs s sep (1+ it)))
+(list (subseq s n))))
+
+```
+
 
 ;;;; operating system ----------------------------------------------------------
 (defun args () 
@@ -60,15 +70,22 @@
 (defun csv (file &optional (fn #'print))
   "Send to `fn` one list from each line."
   (with-open-file (str file)
-    (loop (funcall fn 
-         (subseqs (or (read-line str nil) (return-from csv)))))))
+
+```lisp
+(loop (funcall fn 
+     (subseqs (or (read-line str nil) (return-from csv)))))))
+
+```
+
 
 (defun cli (&optional (our (make-our)) (lst (args)))
   "Maybe update `our` with data from command line."
   (labels ((cli1 (flag x) (aif (member flag lst :test #'equalp)
-                            (cond ((equal x t)   nil) ; flip boolean
-                                  ((equal x nil) t)   ; flip boolean
-                                  (t             (or (num? (second it)) x)))
-                            x)))
-    (dolist (x (our-options our) our)
-      (setf (fourth x) (cli1 (second x) (fourth x))))))
+
+```lisp
+                        (cond ((equal x t)   nil) ; flip boolean
+                              ((equal x nil) t)   ; flip boolean
+                              (t             (or (num? (second it)) x)))
+                        x)))
+(dolist (x (our-options our) our)
+  (setf (fourth x) (cli1 (second x) (fourth x))))))

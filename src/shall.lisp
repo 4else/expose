@@ -3,7 +3,6 @@
 
 asdaasaasasasas #|
 
-
     (defvar *tests* nil)
     (defvar *fails* 0)
     
