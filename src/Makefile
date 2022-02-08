@@ -20,7 +20,7 @@ MDS = ../docs/$(subst .lisp ,.md ../docs/,$(shell ls *.lisp))
 mds : $(subst .lisp,.md,$(MDS))
 
 ../docs/%.md: %.lisp Makefile ../etc/head.md ../etc/md.awk
-	@echo in $< out $@
+	@echo "# $@ ..."
 	@(cat ../etc/head.md; gawk -f ../etc/md.awk -v title="$<" $< ) > $@
 	@git  add $@
 
