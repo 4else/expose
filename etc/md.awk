@@ -1,4 +1,4 @@
-BEGIN {print "\n\n# "title"\n\n"}                   
+BEGIN {gsub(/.lisp/,"",title); print "\n\n# ("title")\n\n"}                   
 NR==1 {next}                                       
 { pre=post=""                                 
   if (sub(/^    /,"")) {                      

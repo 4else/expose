@@ -19,7 +19,7 @@
 
 
 
-# shell.lisp
+# (shell)
 
 
 (defstruct (cli (:constructor %make-cli)) key flag help value)

@@ -19,7 +19,7 @@
 
 
 
-# expose.lisp
+# (expose)
 
 
 (load "base-cli")

@@ -19,7 +19,7 @@
 
 
 
-# about.lisp
+# (about)
 
 
 ## :triangular_flag_on_post: Something else (about AI)

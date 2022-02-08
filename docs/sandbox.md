@@ -19,7 +19,7 @@
 
 
 
-# sandbox.lisp
+# (sandbox)
 
 
 (defun timeit (fun &aux (tick internal-time-units-per-second))
