@@ -11,15 +11,15 @@ is reversed engineered from 20 years of data mining,
 hundreds of research papers, and the work of 20 Ph.D. students[^phd].
 It offers a toolkit  that is remarkable small and fast-- so
 much so that it suggests that
-prior work
+at least some prior work
 was too impressed  by complexity (and not enough with simplicity).
 
-These pages offer some high-level notes on what is going
+These pages offers  high-level notes on what is going
 on here, plus some historical perspectives. 
-To really get a sense of what is going here,
-I challenge you to recode all this in your favorite language
-(a task that takes my students around seven weekly homeworks). Also,
-since not all the world
+To really get inside this material, I offer you two challenges:
+
+1.  Recode everything here  in your favorite language (a task that takes my students around seven weekly homeworks)
+2. Do some of the [inclusiveness training exercises](include).
 
 [^phd]: **Current:** Leonardo Arias, Joymallya Chakraborty, Xiao Ling, Suvodeep Majumder, Andre Motta, Kewen Peng, Rui Shu, Xueqi(Sherry) Yang, Rahul Yedida; **Past:** Amritanshu Agrawal, Shrikanth Chandrasekaran , Jianfeng Chen , Scott  Chen, Wei Fu, Ekrem Kocaguneli  , Joe Krall, Rahul Krishna, Vivek Nair, Ashutosh Nandeshwar, David Owen, Fayola Peters, Abdel Salam Sayyad, Huy Tu, Tianpei (Patrick) Xia, Zhe Yu. **Honorable Mentions**: Gregory Gay.  Anything sensible in these pages  comes from them (and  all mistakes are mine).
 
