@@ -1,6 +1,20 @@
+.PHONY: help tests ho bye mds
+
+help:
+	@printf "make [OPTIONS]\n\nOPTIONS:\n"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
+	| sort \
+	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%10s :\033[0m %s\n", $$1, $$2}'
+
 tests: ## run tests
 	ls *.lua |entr -c ../etc/tasks.sh
 
+hi: ## start work (update all files)
+	git add *;git commit -am save;git push;git status
+
+bye: mds ## stop work (save all files)
+	git add *;git commit -am save;git push;git status
+	
 MDS = ../docs/$(subst .lisp ,.md ../docs/,$(shell ls *.lisp))
 
 mds : $(subst .lisp,.md,$(MDS))
@@ -9,14 +23,6 @@ mds : $(subst .lisp,.md,$(MDS))
 	@echo in $< out $@
 	@(cat ../etc/head.md; gawk -f ../etc/md.awk -v title="$<" $< ) > $@
 	@git  add $@
-
-.PHONY: help
-
-help:
-	@echo $z
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
-	| sort \
-	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 
 pdfs: ../docs/small.pdf
@@ -49,7 +55,3 @@ header:
 
 ok:
 	mkdir -p ../docs
-
-bye:
-	git add *;git commit -am save;git push;git status
-

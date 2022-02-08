@@ -1,26 +1,60 @@
 #|
-AI:  something else you need to knwow
+# Something else (about AI)
 
-not what we are but what else can we be
+Suppose you wanted to teach responsible algorithm design to computer
+scientists and software engineers. What would tell them?
 
-got to know where you are and where else you can be
+There are many answers to that question but what I want so say is
+that it is not what we _are_ but what we _become_.  I want my tools
+to tell me where you are and where else you can be.
 
-A bird in the hand is worth two in bush? really? 
-there are 3 birds? and 67% of
-them live in something called a bush?
-If the world divides into places where
-different birds  live and work live in different places, 
-how to ensure that what
-we build for (e.g.) the birds out of the bush, 
-doesn't hurt everyone else?
+Some say that a bird in the hand is worth two in bush. Really?
+There are 3 birds? And 67% of them live in something called a bush?
+If the world divides into places where different birds  live and
+work live in different places, how can we  ensure that when we build
+for (e.g.) the birds out of the bush, that does not hurt everyone
+else?
 
-There are issues of pressing current concern.
-As more and more of the world is mitigated by softwre,
-the choices within that software effect more and more
-people. Sadly, there are too many recent examples
-of software-bases inequities since
-designers did not look far enough into
-the choices of their tools
+There are issues of pressing current concern.  As more and more of
+the world is mitigated by software, the choices within that software
+effect more and more people. Sadly, there are too many recent
+examples of software-bases inequities. In all those cases, designers
+did not look far enough into the choices, and consequences, of their
+tools. 
+
+The good news is that
+methods for mitigating [^mitigate]
+those inequities are also useful for achieving
+many other tasks as well.
+In turns out that exploring more choices 
+is important when designing any  system. Currently, designers
+are overwhelmed by choices and fully 30% of errors in cloud
+systems are due to poor configuration choices.  
+
+[^mitigate]: We take care to say _mitigate_ and not _remove_.
+Many inequities will continue until we repair the 
+social, economic and political
+forces created them [^no77]. Those repairs will
+require extensive advocacy, years of work, and large
+scale social and/or legislative change.
+For example,
+
+[^noblehow]: Noble (p179) want to 
+"decoupling of advertising and commercial interests 
+from the ability to access high-quality information on the Internet", 
+"suspend the circulation of racist and exist material that is used 
+to erode our civil and human rights”; and require that all search results be color-coded to symbolize e.g.  pornography (in red), business or commercial material (in green),entertainment (in orange), etc [104, p179].
+
+
+For example, the technology discussed
+here has been used to mitigate for bias in decision making algorithms
+[^joy20] _and also_ for improving text-based classifiers;
+helping spacecraft land closer to target;
+fixing bugs in space capsules about systems;
+reducing the energy requirements of database systems;
+configuring complex cloud-based computing; 
+exploring options within software processes; 
+etc; etc. 
 
 pragmatics:
 To address these issues, we need new processes
@@ -164,6 +198,16 @@ Herbert Simon [^si96] has more to say choices:
 | learn    | clustering, contrasts, semi-supervised learning,            |
 | optimize | sequential model optimization, parzen estimators, mutli-objective optimization| 
 
+[^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, 
+and Rukma Talwadker. 2015. 
+[Hey, you have given me too many knobs!: 
+understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).
+FSE 2015. 
+
+
+[^ad21]: K. Adams, [_Timnit Gebru envisions a future for smart, ethical AI_](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) MarketplaceTech, 2021
+[^no77]: D. Noble, _American By Design_. Knopf, 1977.
+[^no18]: S.U.Noble, _Algorithms of oppression_.    New York University Press, 2018. 
 [^nw82]: A. Newell. The Knowledge Level. Artificial Intelligence, 18(1):87-127, 1982.
 [^si96]: Simon, Herbert A. 1996. The Sciences of the Artificial (3rd ed.). Cambridge, MA: MIT Press.
 
