@@ -25,6 +25,8 @@
 
 ## :triangular_flag_on_post: Diversity Exercises
 
+<img src="/etc/img/horse.png" align=right width=350>
+
 Somethings can be solved with smarter algorithms or the smarter use
 of algorithms (where they are used to find new insights in their
 users).  And somethings cannot. Looking beyond the world of mere
