@@ -1,9 +1,9 @@
 #|
 
-<img src="/etc/img/inclusive.jpeg" align=right width=450>
 
 ## Exploring Diversity, Practicing Inclusiveness 
 
+<img src="/etc/img/inclusive.jpeg" align=right width=450>
 
 Somethings can be solved with smarter algorithms or the smarter use
 of algorithms (where they are used to find new insights in their
@@ -11,6 +11,7 @@ users).  And somethings cannot. Looking beyond the world of mere
 algorithms, here are some exercises to help you find (some) of the
 things you might be missing. 
 
+<br clear=all>
 
 ## Listen
 
