@@ -7,5 +7,5 @@ NR==1 {next}
   } else {                                        
     if(code) {pre=""; post="\n```\n\n"}    
     code=0 }                                      
-  gsub(/(#\||\|#)/,"")
+  gsub(/(^; |#\||\|#)/,"")
   print pre $0 post     } 
