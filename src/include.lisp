@@ -3,7 +3,7 @@
 
 ## Exploring Diversity, Practicing Inclusiveness 
 
-<img src="/etc/img/inclusive.jpeg" align=right width=450>
+<img src="/etc/img/inclusive.jpeg" align=right width=550>
 
 Somethings can be solved with smarter algorithms or the smarter use
 of algorithms (where they are used to find new insights in their
