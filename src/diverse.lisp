@@ -45,7 +45,7 @@ things you might be missing.
 
 - Essay: as per the written report above, but only for one subject.
 
-### 45 questions
+## Appendix: 45 questions
 1.  If your parents worked nights and weekends to support your family, take one step back.
 1.  If you are able to move through the world without fear of sexual assault, take one step forward.
 1.  If you can show affection for your romantic partner in public without fear of ridicule or violence, take one step forward.
