@@ -24,7 +24,7 @@ things you might be missing.
 
 - K. Adams, [Timnit Gebru envisions a future for smart, ethical AI](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) MarketplaceTech, 2021
 - K. Starbird [Understanding online disinformation and its spread]( https://www.youtube.com/watch?v=9gzo-1jK-TA). 
-  If you don't want to watch it all (59 minutes), then just go to minute 53:30
+  If you don't want to watch it all (59 minutes), then just go to minute 53:30 where she says:
   
 
 > <img width=35 src="/etc/img/66.png"> A year ago I was here in D.C. at a meeting, the Swedish embassy
@@ -66,7 +66,7 @@ with more -- in more productive ways.
   - At the end, everyone write separately the tests you would propose.
   - Finally, meet up look for differences and similarities in your proposed tests. 
 - Written report (about 2-3 weeks of work): meet as a group and study [five of  the standard undergraduate subjects taught in a computer science program (second year, and higher)](#classes)
-  - This exercise arose from  discussions with [Dr. Angela Smith](https://angeladrsmith.com/) and [Dr. Brittany Johnson](https://cs.gmu.edu/~johnsonb/)https://cs.gmu.edu/~johnsonb/).
+  - This exercise arose from  discussions with [Dr. Angela Smith](https://angeladrsmith.com/) and [Dr. Brittany Johnson](https://cs.gmu.edu/~johnsonb/).
   - What harm could befall people based on the decisions about the systems discussed in those classes?
   - How to mitigate that potential harms?
   - How to redesign the teaching of those subjects such that more power is granted to the people using the systems discussed in those classes.
