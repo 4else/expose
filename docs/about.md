@@ -22,29 +22,29 @@
 # (about)
 
 
-## :triangular_flag_on_post: "Something else" you need to know (about AI)
 
 <img src="/etc/img/errors.png" align=right width=300>
 
 This book is about algorithms that seek
-"something else"; i.e. that find all the things
-that you should be seeing, even those that you might be missing.
-It 
-is reversed engineered from 20 years of data mining,
+"something else"; i.e. that find things
+that you should be seeing, but might be missing.
+It is reversed engineered from 20 years of data mining,
 hundreds of research papers, and the work of 20 Ph.D. students[^phd].
 It offers a toolkit  that is remarkable small and fast-- so
-much so that it suggests that
-at least some prior work
-was too impressed  by complexity (and not enough with simplicity).
+much so that, possibly,
+some prior work tried complex solutions, _without_
+comparing them against something simpler.
 
 These pages offers  high-level notes on what is going
 on here, plus some historical perspectives. 
 To really get inside this material, I offer you two challenges:
 
 1.  Recode everything here  in your favorite language (a task that takes my students around seven weekly homeworks)
-2. Do some of the [inclusiveness training exercises](include).
+2. Do some of the [inclusiveness training exercises](include.md).
 
 [^phd]: **Current:** Leonardo Arias, Joymallya Chakraborty, Xiao Ling, Suvodeep Majumder, Andre Motta, Kewen Peng, Rui Shu, Xueqi(Sherry) Yang, Rahul Yedida; **Past:** Amritanshu Agrawal, Shrikanth Chandrasekaran , Jianfeng Chen , Scott  Chen, Wei Fu, Ekrem Kocaguneli  , Joe Krall, Rahul Krishna, Vivek Nair, Ashutosh Nandeshwar, David Owen, Fayola Peters, Abdel Salam Sayyad, Huy Tu, Tianpei (Patrick) Xia, Zhe Yu. **Honorable Mentions**: Gregory Gay.  Anything sensible in these pages  comes from them (and  all mistakes are mine).
+
+## :triangular_flag_on_post: Seeking "Something Else"
 
 Such algorithms may
 surprise or delight you. Conversely, they may
