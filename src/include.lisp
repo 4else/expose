@@ -1,6 +1,6 @@
 #|
 
-<img src="/etc/img/inclusive.png" align=right width=450>
+<img src="/etc/img/inclusive.jpeg" align=right width=450>
 
 ## Exploring Diversity, Practicing Inclusiveness 
 
