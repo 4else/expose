@@ -23,7 +23,7 @@
 
 
 
-<img src="/etc/img/errors.png" align=right width=300>
+<img src="/etc/img/errors.jpeg" align=right width=300>
 
 This book is about algorithms that seek
 "something else"; i.e. that find things
