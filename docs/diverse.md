@@ -29,7 +29,7 @@ Somethings can be solved with smarter algorithms or the smarter use
 of algorithms (where they are used to find new insights in their
 users).  And somethings cannot. Looking beyond the world of mere
 algorithms, here are some exercises to help you find (some) of the
-things you might be missing. x
+things you might be missing. 
 
 
 ## :triangular_flag_on_post: Listen
@@ -46,68 +46,27 @@ things you might be missing. x
 ## :triangular_flag_on_post: Group Exercises
 
 - Short exercise
-  - With a group of 6 to 20  friends, play "What is  privilege" game. Ask the 
-
-```lisp
-questions below, letting the questions make you step forward or backward [^zoom].
+  - With a group of 6 to 20  friends, play "What is  privilege" game. Ask the questions below, letting the questions make you step forward or backward [^zoom].
   - Afterwards, form a circle and watch [this video](https://www.youtube.com/watch?v=hD5f8GuNuGQ).
-```
-
-
-  - Then, working clockwise around the circle, take turns to offer 2-3 sentences on 
-
-```lisp
-your experience with the game (or say "pass" if you do not want to talk; or if what you want to
-say has been said before).
+  - Then, working clockwise around the circle, take turns to offer 2-3 sentences on your experience with the game (or say "pass" if you do not want to talk; or if what you want to say has been said before).
 - Longer exercise (about a week, multiple sessions):
-```
-
-
   - Design tests for a system using a  _cognitive walk through_.  According to [Wikipedia](https://en.wikipedia.org/wiki/Cognitive_walkthrough):
 
 ```lisp
 - The cognitive walkthrough method is a usability inspection method used to identify usability issues in interactive systems, focusing on how easy it is for new users to accomplish tasks with the system. A cognitive walkthrough is task-specific, whereas heuristic evaluation takes a holistic view to catch problems not caught by this and other usability inspection methods. 
-  - Extract _06 - CS-SE - Fall 2020 - GenderMag Exploration.docx_ from 
+  - Extract _06 - CS-SE - Fall 2020 - GenderMag Exploration.docx_ from [this on-line zip](https://figshare.com/articles/online_resource/ICER_2021_Supplemental_Documents/14294744);
 ```
 
 
-
-```lisp
-[this on-line zip](https://figshare.com/articles/online_resource/ICER_2021_Supplemental_Documents/14294744);
-  - In a group of four or more, consider some enhancment to
-```
-
-
-
-```lisp
-a digital phone app (for details, see the extracted document).
+  - In a group of four or more, consider some enhancment to a digital phone app (for details, see the extracted document).
   - Follow the guidelines of the extracted document.
-```
-
-
   - At the end, everyone write separately the tests you would propose.
-  - Finally, meet up look for differences and similarities in your proposed
-
-```lisp
-tests. 
-- Written report (about 2-3 weeks of work): meet as a group and 
-```
-
-
-  study 
-  five of  the standard undergraduate subjects taught in a computer science
-  program (second year, and higher):
+  - Finally, meet up look for differences and similarities in your proposed tests. 
+- Written report (about 2-3 weeks of work): meet as a group and study five of  the standard undergraduate subjects taught in a computer science program (second year, and higher):
   - What harm could befall people based on the decisions about the systems discussed in those classes?
   - How to mitigate that potential harms?
-  - How to redesign the teaching of those subjects such that more power is granted to 
-
-```lisp
-the people using the systems discussed in those classes.
-- Term project: answer the same "harm, mitigate, empower" questions but this time, go out into the 
-```
-
-
-  community and work with some specific social group to redesign some some software that they use of a regular basis.
+  - How to redesign the teaching of those subjects such that more power is granted to the people using the systems discussed in those classes.
+- Term project: answer the same "harm, mitigate, empower" questions but this time, go out into the community and work with some specific social group to redesign some some software that they use of a regular basis.
 
 [^zoom]: Or, if you want to be virtual about it, run an on-line meeting where everyone touches their sternum. Move your hand up or down  (one finger width) according to your the answers.
 
