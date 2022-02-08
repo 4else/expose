@@ -8,4 +8,5 @@ NR==1 {next}
     if(code) {pre=""; post="\n```\n\n"}    
     code=0 }                                      
   gsub(/(^; |#\||\|#)/,"")
+  gsub(/^## /,"## :triangular_flag_on_post: ") 
   print pre $0 post     } 

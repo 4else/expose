@@ -22,8 +22,51 @@
 # about.lisp
 
 
-# Something else (about AI)
+## :triangular_flag_on_post: Something else (about AI)
 
+<img src="/etc/img/parento.png" align=right width=300>
+
+This book is about algorithms that seek
+"something else"; i.e. that find all the things
+that you should be seeing, including those that you might be missing.
+It 
+is reversed engineered from 20 years of data mining,
+hundreds of research papers, and the work of 20 Ph.D. students[^phd].
+It offers a toolkit  that is remarkable small and fast-- so
+much so that it suggests that
+prior work
+was too impressed  by complexity (and not enough with simplicity).
+
+These pages offer some high-level notes on what is going
+on here, plus some historical perspectives. 
+To really get a sense of what is going here,
+I challenge you to recode all this in your favorite language
+(a task that takes my students around seven weekly homeworks). Also,
+since not all the world
+
+[^phd]: In order: Scott Chen, David Owen, 
+Ashutosh R. Nandeshwar, Ekrem Kocaguneli,
+Joe Krall, Sayyad, Fayola Peters, Greg Gay, Wei Fu, 
+Vivek Nair,  Any sensible here comes from them (and  all mistakes are mine).
+
+
+Such algorithms may
+surprise or delight you. Conversely, they may
+expose
+dangers that should alarm you. They are tools
+for planning how to improve things and for monitoring
+what might make things worse. But hopefully, they
+will change what you think about the world
+since, in this era of great change,
+we should ask
+"ask not what you can do to your data but what
+your data can do yo dou."
+
+They  or warn you of impending may not confirm your world
+view. Rather, they might surprise or shock you. We run
+such a
+
+to find and util"something else"
 Suppose you wanted to teach responsible algorithm design to computer
 scientists and software engineers. What would tell them?
 
@@ -225,7 +268,7 @@ Herbert Simon [^si96] has more to say choices:
 
 [^ad21]: K. Adams, [_Timnit Gebru envisions a future for smart, ethical AI_](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) MarketplaceTech, 2021
 [^no77]: D. Noble, _American By Design_. Knopf, 1977.
-[^no18]: S.U.Noble, _Algorithms of oppression_.    New York University Press, 2018. 
+[^no18]: S.U.Noble, _Algorithms of Oppression_.    New York University Press, 2018. 
 [^nw82]: A. Newell. The Knowledge Level. Artificial Intelligence, 18(1):87-127, 1982.
 [^si96]: Simon, Herbert A. 1996. The Sciences of the Artificial (3rd ed.). Cambridge, MA: MIT Press.
 [^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).  FSE 2015. 
