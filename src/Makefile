@@ -7,7 +7,7 @@ mds : $(subst .lisp,.md,$(MDS))
 
 ../docs/%.md: %.lisp Makefile ../etc/head.md ../etc/md.awk
 	@echo in $< out $@
-	@(cat ../etc/head.md; gawk -f ../etc/md.awk $< ) > $@
+	@(cat ../etc/head.md; gawk -f ../etc/md.awk title="$<" $< ) > $@
 	@git  add $@
 
 .PHONY: help
