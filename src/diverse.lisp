@@ -23,7 +23,7 @@ things you might be missing.
 ## Group Exercises
 
 - Short exercise
-  - With a group of 6 to 20  friends, play "What is  privilege" game. Ask the questions below, letting the questions make you step forward or backward [^zoom].
+  - With a group of 6 to 20  friends, play "What is  privilege" game. Ask the [questions below](#35), letting the questions make you step forward or backward [^zoom].
   - Afterwards, form a circle and watch [this video](https://www.youtube.com/watch?v=hD5f8GuNuGQ).
   - Then, working clockwise around the circle, take turns to offer 2-3 sentences on your experience with the game (or say "pass" if you do not want to talk; or if what you want to say has been said before).
 - Longer exercise (about a week, multiple sessions):
@@ -45,7 +45,9 @@ things you might be missing.
 
 - Essay: as per the written report above, but only for one subject.
 
-## Appendix: 45 questions
+<a name=35>
+
+## Appendix: 35 questions
 1.  If your parents worked nights and weekends to support your family, take one step back.
 1.  If you are able to move through the world without fear of sexual assault, take one step forward.
 1.  If you can show affection for your romantic partner in public without fear of ridicule or violence, take one step forward.
