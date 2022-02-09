@@ -8,7 +8,7 @@ that you should be seeing, but might be missing.
 It is reversed engineered from 20 years of data mining,
 hundreds of research papers, and the work of 20 Ph.D. students[^phd].
 
-We offer those algorithms in   toolkit  that is remarkable small and fast. In less
+[^no18] We offer those algorithms in   toolkit  that is remarkable small and fast. In less
 than a thousand lines of code, these tools complete tasks 
 that, elsewhere, have been explored as different things [^tasks]. Here,
 we suggest that they are all aspects of one thing- a process we will
