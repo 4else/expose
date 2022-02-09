@@ -96,7 +96,7 @@ methods for mitigating [^mitigate]
 those inequities are also useful for achieving
 many other tasks as well.
 In turns out that exploring more choices 
-is important when designing any  system. Currently, designers
+is important when designing any  system [^xu15]. Currently, designers
 are overwhelmed by choices and fully 30% of errors in cloud
 systems are due to poor configuration choices.  
 
@@ -270,7 +270,8 @@ Herbert Simon [^si96] has more to say choices:
 
 
 [^ad21]: K. Adams, 
-  [_Timnit Gebru envisions a future for smart, ethical AI_](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) 
+  [_Timnit Gebru envisions a future for smart, ethical 
+  AI_](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) 
   MarketplaceTech, 2021
 [^no77]: D. Noble, _American By Design_. Knopf, 1977.
 [^no18]: S.U.Noble, _Algorithms of Oppression_.    New York University Press, 2018. 
@@ -279,7 +280,8 @@ Herbert Simon [^si96] has more to say choices:
 [^socialdilemna]: The Social Dilemma, 2020, Docudrama directed by Jeff Orlowski; 
   written by Jeff Orlowski, Davis Coombe, and Vickie Curtis. 
 [^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.
-  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).
+  [Hey, you have given me too many knobs!: understanding and dealing with 
+  over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).
   FSE 2015.
 
 
