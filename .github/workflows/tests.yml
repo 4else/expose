@@ -3,25 +3,15 @@ on: [push]
 jobs:
     Unit-Tests:
       runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false # Let the workflow continue as much as possible
-      matrix:
-        include:
-          - os: ubuntu-latest
-            lisp: sbcl-bin
-          - os: macos-latest
-            lisp: sbcl-bin
-          - os: windows-latest
-            lisp: sbcl-bin
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Install lisp
+      - name: Install lisp  
         run: |
-          apt install sbcl;
+          echo apt install sbcl;
       - name: Run tests  
         run: |
           cd ${{ github.workspace }}/src; pwd; ls ..; \
