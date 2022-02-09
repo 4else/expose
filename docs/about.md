@@ -292,12 +292,17 @@ Herbert Simon [^si96] has more to say choices:
 
 
 
-[^ad21]: K. Adams, [_Timnit Gebru envisions a future for smart, ethical AI_](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) MarketplaceTech, 2021
+[^ad21]: K. Adams, 
+  [_Timnit Gebru envisions a future for smart, ethical AI_](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) 
+  MarketplaceTech, 2021
 [^no77]: D. Noble, _American By Design_. Knopf, 1977.
 [^no18]: S.U.Noble, _Algorithms of Oppression_.    New York University Press, 2018. 
 [^nw82]: A. Newell. The Knowledge Level. Artificial Intelligence, 18(1):87-127, 1982.
 [^si96]: Simon, Herbert A. 1996. The Sciences of the Artificial (3rd ed.). Cambridge, MA: MIT Press.
-[^socialdilemna] The Social Dilemma, 2020, Docudrama directed by Jeff Orlowski; written by Jeff Orlowski, Davis Coombe, and Vickie Curtis. 
-[^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).  FSE 2015. 
+[^socialdilemna]: The Social Dilemma, 2020, Docudrama directed by Jeff Orlowski; 
+  written by Jeff Orlowski, Davis Coombe, and Vickie Curtis. 
+[^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.  
+  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).  
+  FSE 2015. 
 
 
