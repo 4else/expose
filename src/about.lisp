@@ -307,7 +307,7 @@ Herbert Simon [^si96] has more to say choices:
 
 [^goo]: [Google’s sentiment analyzer thinks being gay is bad](https://bit.ly/2yMax8V), Motherboard, Oct 2017. 
 
-[^bias]: [Study  finds  gender  and  skin-type  bias  in  commercial  artificial-intelligence  systems](https://bit.ly/2LxosK6)
+[^bias]: [Study  finds  gender  and  skin-type  bias  in  commercial  artificial-intelligence  systems](https://bit.ly/2LxosK6), Feb 11m 2018,  Larry Hardesty,  MIT News.
 
 [^photos]: [Google  apologizes  for  mis-tagging  photos  of  african  americans](https://cbsn.ws/2LBYbdy)  July  2015
 
