@@ -16,15 +16,6 @@ jobs:
         lisp: 
          - sbcl
         experimental: [false]
-        include:
-          - lisp: sbcl/git
-            os: ubuntu-18.04
-            experimental: true
-
-    env:
-      LISP: ${{ matrix.lisp }}
-      ROSWELL_REPO: https://github.com/${{ github.repository }}
-      ROSWELL_BRANCH: ${{ github.head_ref }}
 
     steps:
       - uses: actions/checkout@v2
