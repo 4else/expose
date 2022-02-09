@@ -108,11 +108,35 @@ require extensive advocacy, years of work, and large
 scale social and/or legislative change.
 For example,
 
-[^noblehow]: Noble (p179) want to 
+[^noblehow]: Noble (p179)[^maths] want to 
 "decoupling of advertising and commercial interests 
 from the ability to access high-quality information on the Internet", 
 "suspend the circulation of racist and exist material that is used 
 to erode our civil and human rights”; and require that all search results be color-coded to symbolize e.g.  pornography (in red), business or commercial material (in green),entertainment (in orange), etc [104, p179].
+
+
+Nevertheless, there are many scenarios where machine learning
+software has been found to be biased and generating arguably unfair
+decisions. Google's sentiment analyzer model which determines
+positive or negative sentiment, gives negative score to the sentences
+such as _"I am a Jew", and "I am homosexual"_[^goo]. Facial recognition software
+which predicts characteristics such as gender, age from images has
+been found to have a much higher error rate for dark-skinned women
+compared to light-skinned men [^bias]. A popular photo
+tagging model has assigned animal category labels to dark skinned
+people [^photos]. Recidivism assessment models used by
+the criminal justice system have been found to be more likely to
+falsely label black defendants as future criminals at almost twice
+the rate as white defendants [^crims]. Amazon.com stopped
+using automated job recruiting model after detection of bias against
+women [^racist].
+For other examples of
+unfair decisions made by software.
+see many other places including
+Cathy O'Neil’s  _Weapons of Math Destruction_ [^maths]
+and 
+or  Safiya Umoja Noble's
+book _Algorithms of oppression_ [^no18].
 
 
 For example, the technology discussed
@@ -280,6 +304,18 @@ Herbert Simon [^si96] has more to say choices:
 [^soc]: The Social Dilemma, 2020, Docudrama directed by Jeff Orlowski; written by Jeff Orlowski, Davis Coombe, and Vickie Curtis. 
 
 [^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).  FSE 2015.
+
+[^goo]: [Google’s sentiment analyzer thinks being gay is bad](https://bit.ly/2yMax8V), Motherboard, Oct 2017. 
+
+[^bias]: [Study  finds  gender  and  skin-type  bias  in  commercial  artificial-intelligence  systems](https://bit.ly/2LxosK6)
+
+[^photos]: [Google  apologizes  for  mis-tagging  photos  of  african  americans](https://cbsn.ws/2LBYbdy)  July  2015
+
+[^crims]: [Machine  bias,”www.propublica.org,  May  2016](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing)
+
+[^racist]: [Amazon  just  showed  us  that  ’unbiased’  algorithms  can  be  inadvertently  racist](https://www.businessinsider.com/how-algorithms-can-be-racist-2016-4), 2016
+
+[^maths]: C. O’Neil, _Weapons of Math Destruction_. Crown Publishing Group, 2016
 
 
 |#
