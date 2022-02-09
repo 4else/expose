@@ -9,7 +9,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test:
+  install:
     name: ${{ matrix.lisp }} on ${{ matrix.os }}
     strategy:
       matrix:
@@ -25,7 +25,8 @@ jobs:
     defaults:
       run:
         shell: ${{ fromJSON('[ "bash", "msys2 {0}" ]') [ matrix.os == 'windows-latest' ] }}
-
+ 
+  test:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
