@@ -14,7 +14,7 @@ that, elsewhere, have been explored as different things [^tasks]. Here,
 we suggest that they are all aspects of one thing- a process we will
 call _cluster and contrast_.
 
-explanations algorithms, -- so
+explanations algorithms, -- so [^soc]
 much so that, possibly,
 some prior work tried complex solutions, _without_
 comparing them against something simpler.
@@ -167,8 +167,7 @@ of those options satisfy "sanity checks" that rule
 our impossibilities.
 
 
-[^warn]: "Ignoring things outside XXX  rest" actually
-means "ignoring a lot". 
+[^warn]: "Ignoring things outside XXX  rest" actually means "ignoring a lot". 
 [^b]: asdas
 
 limits:
@@ -278,7 +277,7 @@ Herbert Simon [^si96] has more to say choices:
 
 [^si96]: Simon, Herbert A. 1996. The Sciences of the Artificial (3rd ed.). Cambridge, MA: MIT Press.
 
-[^socialdilemna]: The Social Dilemma, 2020, Docudrama directed by Jeff Orlowski; written by Jeff Orlowski, Davis Coombe, and Vickie Curtis. 
+[^soc]: The Social Dilemma, 2020, Docudrama directed by Jeff Orlowski; written by Jeff Orlowski, Davis Coombe, and Vickie Curtis. 
 
 [^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).  FSE 2015.
 
