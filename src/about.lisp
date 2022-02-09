@@ -278,8 +278,9 @@ Herbert Simon [^si96] has more to say choices:
 [^si96]: Simon, Herbert A. 1996. The Sciences of the Artificial (3rd ed.). Cambridge, MA: MIT Press.
 [^socialdilemna]: The Social Dilemma, 2020, Docudrama directed by Jeff Orlowski; 
   written by Jeff Orlowski, Davis Coombe, and Vickie Curtis. 
-[^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.  
-  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).  
-  FSE 2015. 
+[^xu15]: Tianyin Xu, Long Jin, Xuepeng Fan, Yuanyuan Zhou, Shankar Pasupathy, and Rukma Talwadker. 2015.
+  [Hey, you have given me too many knobs!: understanding and dealing with over-designed configuration in system software](https://cseweb.ucsd.edu/~tixu/papers/fse15.pdf).
+  FSE 2015.
+
 
 |#
