@@ -2,10 +2,8 @@
 <!-- tricks from https://simpleicons.org/  https://studio.tailorbrands.com -->
 <p align=center>
 <a href="/README.md#top">home</a> • 
-<a href="asdas">about</a> • 
-<a href="asdas">egs</a> • 
-<a href="asdas">issues</a> • 
-<a href="asdas">chat</a>  
+<a href="/docs/about.md">about</a> • 
+<a href="https://github.com/4else/expose/issues">issues</a>  
 </p><p align=center>
 <a href="/README.md#top"><img src="/etc/img/expose.png" width=250></a><br>
 <img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet">
