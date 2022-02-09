@@ -1,0 +1,33 @@
+name: test
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-18.04]
+        lisp: 
+         - sbcl
+        experimental: [false]
+        include:
+          - lisp: sbcl/git
+            os: ubuntu-18.04
+            experimental: true
+
+    env:
+      LISP: ${{ matrix.lisp }}
+      ROSWELL_REPO: https://github.com/${{ github.repository }}
+      ROSWELL_BRANCH: ${{ github.head_ref }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: script
+        run: |
+          ls
