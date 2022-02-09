@@ -13,7 +13,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}; \
           git clone git://git.code.sf.net/p/sbcl/sbcl; \
-          cd sbcl; sh run-sbcl.sh; \
+          cd sbcl; sh make.sh; sh run-sbcl.sh; \
           ls; ls bin
       - name: Run tests  
         run: |
