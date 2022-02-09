@@ -2,7 +2,7 @@
 <!-- tricks from https://simpleicons.org/  https://studio.tailorbrands.com -->
 <p align=center>
 <a href="/README.md#top">home</a> • 
-<a href="/docs/about/.md">about</a> • 
+<a href="/docs/about.md#top">about</a> • 
 <a href="https://github.com/4else/expose/issues">issues</a>  
 </p><p align=center>
 <a href="/README.md#top"><img src="/etc/img/expose.png" width=250></a><br>
@@ -14,4 +14,4 @@
 <a href="/LICENSE.md#top">&copy;2022</a> Tim Menzies
 </p>
 
-[About](/docs/about.md)
+[About](/docs/about.md#top)
