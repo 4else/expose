@@ -8,7 +8,7 @@ that you should be seeing, but might be missing.
 It is reversed engineered from 20 years of data mining,
 hundreds of research papers, and the work of 20 Ph.D. students[^phd].
 
-[^no18] We offer those algorithms in   toolkit  that is remarkable small and fast. In less
+We offer those algorithms in   toolkit  that is remarkable small and fast. In less
 than a thousand lines of code, these tools complete tasks 
 that, elsewhere, have been explored as different things [^tasks]. Here,
 we suggest that they are all aspects of one thing- a process we will
@@ -108,7 +108,7 @@ require extensive advocacy, years of work, and large
 scale social and/or legislative change.
 For example,
 
-[^noblehow]: Noble (p179)[^maths] want to 
+[^noblehow]: Noble (p179)[^no18] want to 
 "decoupling of advertising and commercial interests 
 from the ability to access high-quality information on the Internet", 
 "suspend the circulation of racist and exist material that is used 
@@ -284,11 +284,6 @@ Herbert Simon [^si96] has more to say choices:
 
 
  For example, in a computer program, the knowledge level consists of the information contained in its data structures that it uses to perform certain actions. The symbol level consists of the program's algorithms, the data structures themselves, and so on.
-
-| Class    | Algorithm  |
-|----------|------------|
-| learn    | clustering, contrasts, semi-supervised learning,            |
-| optimize | sequential model optimization, parzen estimators, mutli-objective optimization| 
 
 
 [^ad21]: K. Adams, [_Timnit Gebru envisions a future for smart, ethical AI_](https://www.marketplace.org/shows/marketplace-tech/timnit-gebru-envisions-a-future-for-smart-ethical-ai/) MarketplaceTech, 2021
