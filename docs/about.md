@@ -336,7 +336,7 @@ Herbert Simon [^si96] has more to say choices:
 
 [^crims]: [Machine  bias,”www.propublica.org,  May  2016](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing)
 
-[^racist]: [Amazon  just  showed  us  that  ’unbiased’  algorithms  can  be  inadvertently  racist](https://www.businessinsider.com/how-algorithms-can-be-racist-2016-4), 2016
+[^racist]: [Amazon  just  showed  us  that  ’unbiased’  algorithms  can  be  inadvertently  racist](https://www.businessinsider.com/how-algorithms-can-be-racist-2016-4), Apr 21, 2016, Insider Magazine, Rafi Letzter.
 
 [^maths]: C. O’Neil, _Weapons of Math Destruction_. Crown Publishing Group, 2016
 
