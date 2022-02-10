@@ -41,11 +41,12 @@
     (if (null xs)
       body
       (let ((x (pop xs)))
-        (cond ((fun x) `(labels ((,(pop x) ,(pop x) ,@x))     ,@(%let+ body xs)))
-              ((mvb x) `(multiple-value-bind ,(pop x) ,(pop x) ,(%let+ body xs)))
+        (cond ((fun x) `(labels ((,(pop x) ,(pop x) ,@x))       ,(%let+ body xs)))
+              ((mvb x) `(multiple-value-bind ,(pop x) ,(pop x) ,@(%let+ body xs)))
               (t       `(let (,x)                         ,(%let+ body xs))))))))
 
 (defmacro let+ (spec &rest body) (%let+ body spec))
+
 
 (print (macroexpand-1  `(let+ ((a 1)  
               zz
@@ -53,3 +54,23 @@
               (mm 23)
               (fun (args1 args1) (body1 1) (body2) (print 23)))
              (print 1) (print 2))))
+
+(print (macroexpand-1 `(let+ (z
+         (y 1)
+         (z 2)
+         (fn1 (x y) (+ x y))
+         ((a b) (fn2 x (fn1 y z))))
+      (format t "a ~a b ~a x ~a y ~a z ~a~%" a b x y z))))
+
+(defun fn2 (x y ) (values x (+ x y)))
+
+(defun test-let+(&optional (x 1))
+  (let+ (z
+         (y 1)
+         (z 2)
+         (fn1 (x y) (+ x y))
+         ((a b) (fn2 x (fn1 y z))))
+      (format t "~&a ~a b ~a x ~a y ~a z ~a~%" a b x y z)))
+
+
+    (test-let+)
