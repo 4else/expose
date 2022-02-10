@@ -19,4 +19,4 @@ Lets have some fun."
   (make-cli 'todo    "-t" "start up action          " "")
 )))
 
-(print (our-options *config*))
+(print  *config*)

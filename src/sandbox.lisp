@@ -74,3 +74,8 @@
 
 
     (test-let+)
+
+
+(require 'relativity) 
+(import '(relativity:speed-of-light 
+          relativity:ignore-small-errors))
