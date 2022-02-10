@@ -247,7 +247,7 @@ by seeking the "other voice":
   Congitive walk throughs
    Burnett team differences.[^hiding] 
 - _Outreach_: Do outreach beyond the current team and
-staff the design team with
+  staff the design team with
   persons from diverse backgrounds, empowered
   to make change in the design.
 - _Tinkering_: 
@@ -258,9 +258,9 @@ staff the design team with
   When tinkering with data mining, do not ask "what can we do
   with the data" but "what can the data do to us".
   Seek the 
-new insights that demand a revision
-to how you (or your organization or society) approaches
-its goals (perhaps even changing those goals).
+  new insights that demand a revision
+  to how you (or your organization or society) approaches
+  its goals (perhaps even changing those goals).
 
 [^hiding]: Caveat. Respect privacy. 
 

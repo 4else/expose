@@ -24,4 +24,32 @@
           (format t "~4a :lst ~,10f :arr ~,10f :ratio ~5,3f~%" c 
                   (/ ltime r) (/ atime r ) (/ ltime atime ))))))
 
-(list-vs-array)
+;(list-vs-array)
+
+;;;;;
+;(defmacro ? (s x &rest xs) 
+ ; "Nested access to slots."
+  ;(if (null xs) `(slot-value ,s ',x) `(? (slot-value ,s ',x) ,@xs)))
+;(multiple-value-bind 
+;(asas (asasd) asass)
+
+;(labels ((asdasas  (asdas) 
+;(lets ((a b)
+(defun %let+ (body xs)
+  (labels ((fun (x) (and (listp x) (> (length x) 2)))
+           (mvb (x) (and (listp x) (listp (car x)))))
+    (if (null xs)
+      body
+      (let ((x (pop xs)))
+        (cond ((fun x) `(labels ((,(pop x) ,(pop x) ,@x))     ,@(%let+ body xs)))
+              ((mvb x) `(multiple-value-bind ,(pop x) ,(pop x) ,(%let+ body xs)))
+              (t       `(let (,x)                         ,(%let+ body xs))))))))
+
+(defmacro let+ (spec &rest body) (%let+ body spec))
+
+(print (macroexpand-1  `(let+ ((a 1)  
+              zz
+              ((x y) (ff aa))
+              (mm 23)
+              (fun (args1 args1) (body1 1) (body2) (print 23)))
+             (print 1) (print 2))))

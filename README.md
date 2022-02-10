@@ -34,10 +34,6 @@ Simplicity is the ultimate sophistication.
 Simplicity is prerequisite for reliability.  
 — Edsger W. Dijkstra
 
-Simplex sigillum veri   
-(Simplicity is the sign of truth.)   
--- Hermann Boerhaave
-
 Less is more.   
 -- Dieter Rams
 

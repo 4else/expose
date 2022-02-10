@@ -5,6 +5,8 @@
 This book is about algorithms that seek
 "something else"; i.e. that find things
 that you should be seeing, but might be missing.
+
+
 It is reversed engineered from 20 years of data mining,
 hundreds of research papers, and the work of 20 Ph.D. students[^phd].
 
@@ -73,9 +75,6 @@ to find and util"something else"
 Suppose you wanted to teach responsible algorithm design to computer
 scientists and software engineers. What would tell them?
 
-There are many answers to that question but what I want so say is
-that it is not what we _are_ but what we _become_.  I want my tools
-to tell me where you are and where else you can be.
 
 Some say that a bird in the hand is worth two in bush. Really?
 There are 3 birds? And 67% of them live in something called a bush?
