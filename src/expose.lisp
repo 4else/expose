@@ -1,8 +1,9 @@
+(load "macros")
 (load "base-items")
 (load "base-cli")
 
-(setf *config*
-      (make-our 
+(setf *config* (make-our 
+
 :help "sbcl --noinform --script expose.lisp [OPTIONS]
 (c) 2022, Tim Menzies, MIT license
 
@@ -15,6 +16,7 @@ Lets have some fun."
   (make-cli 'license "-l" "show license             " nil)
   (make-cli 'p       "-p" "euclidean coefficient    " 2)
   (make-cli 'seed    "-s" "random number seed       " 10019)
-  (make-cli 'todo    "-t" "start up action          " ""))))
+  (make-cli 'todo    "-t" "start up action          " "")
+)))
 
-
+(print (our-options *config*))
