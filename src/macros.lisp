@@ -40,11 +40,11 @@
   (labels ((lab (x) (and (listp x) (> (length x) 2)))
            (mvb (x) (and (listp x) (listp (car x)))))
     (if (null xs)
-      body
-      (let ((x (pop xs)))
-        (cond 
-          ((lab x) `(labels ((,(pop x) ,(pop x) ,@x))       ,(%let body xs)))
-          ((mvb x) `(multiple-value-bind ,(pop x) ,(pop x) ,@(%let body xs)))
-          (t       `(let (,x)                               ,(%let body xs))))))))
+        body
+        (let ((x (pop xs)))
+          (cond 
+            ((lab x) `(labels ((,(pop x) ,(pop x) ,@x))       ,(%let body xs)))
+            ((mvb x) `(multiple-value-bind ,(pop x) ,(pop x) ,@(%let body xs)))
+            (t       `(let (,x)                          ,(%let body xs))))))))
 
 (defmacro let+ (spec &rest body) (%let body spec))

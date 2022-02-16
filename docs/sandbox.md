@@ -2,7 +2,7 @@
 <!-- tricks from https://simpleicons.org/  https://studio.tailorbrands.com -->
 <p align=center>
 <a href="/README.md#top">home</a> • 
-<a href="/docs/about.md">about</a> • 
+<a href="/docs/about.md#top">about</a> • 
 <a href="https://github.com/4else/expose/issues">issues</a>  
 </p><p align=center>
 <a href="/README.md#top"><img src="/etc/img/expose.png" width=250></a><br>
@@ -55,4 +55,85 @@
 ```
 
 
-(list-vs-array)
+;(list-vs-array)
+
+;;;;;
+;(defmacro ? (s x &rest xs) 
+ ; "Nested access to slots."
+  ;(if (null xs) `(slot-value ,s ',x) `(? (slot-value ,s ',x) ,@xs)))
+;(multiple-value-bind 
+;(asas (asasd) asass)
+
+;(labels ((asdasas  (asdas) 
+;(lets ((a b)
+(defun %let+ (body xs)
+  (labels ((fun (x) (and (listp x) (> (length x) 2)))
+
+```lisp
+       (mvb (x) (and (listp x) (listp (car x)))))
+(if (null xs)
+  body
+  (let ((x (pop xs)))
+    (cond ((fun x) `(labels ((,(pop x) ,(pop x) ,@x))       ,(%let+ body xs)))
+          ((mvb x) `(multiple-value-bind ,(pop x) ,(pop x) ,@(%let+ body xs)))
+          (t       `(let (,x)                         ,(%let+ body xs))))))))
+
+```
+
+
+(defmacro let+ (spec &rest body) (%let+ body spec))
+
+
+(print (macroexpand-1  `(let+ ((a 1)  
+
+```lisp
+          zz
+          ((x y) (ff aa))
+          (mm 23)
+          (fun (args1 args1) (body1 1) (body2) (print 23)))
+         (print 1) (print 2))))
+
+```
+
+
+(print (macroexpand-1 `(let+ (z
+
+```lisp
+     (y 1)
+     (z 2)
+     (fn1 (x y) (+ x y))
+     ((a b) (fn2 x (fn1 y z))))
+  (format t "a ~a b ~a x ~a y ~a z ~a~%" a b x y z))))
+
+```
+
+
+(defun fn2 (x y ) (values x (+ x y)))
+
+(defun test-let+(&optional (x 1))
+  (let+ (z
+
+```lisp
+     (y 1)
+     (z 2)
+     (fn1 (x y) (+ x y))
+     ((a b) (fn2 x (fn1 y z))))
+  (format t "~&a ~a b ~a x ~a y ~a z ~a~%" a b x y z)))
+
+```
+
+
+
+
+```lisp
+(test-let+)
+
+```
+
+
+
+(require 'relativity) 
+(import '(relativity:speed-of-light 
+
+```lisp
+      relativity:ignore-small-errors))

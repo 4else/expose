@@ -2,6 +2,9 @@
 (load "base-items")
 (load "base-cli")
 
+(defun a(x) (b x))
+(defun b(x) (+ x 0))
+
 (setf *config* (make-our 
 
 :help "sbcl --noinform --script expose.lisp [OPTIONS]

@@ -2,7 +2,7 @@
 <!-- tricks from https://simpleicons.org/  https://studio.tailorbrands.com -->
 <p align=center>
 <a href="/README.md#top">home</a> • 
-<a href="/docs/about.md">about</a> • 
+<a href="/docs/about.md#top">about</a> • 
 <a href="https://github.com/4else/expose/issues">issues</a>  
 </p><p align=center>
 <a href="/README.md#top"><img src="/etc/img/expose.png" width=250></a><br>
@@ -20,16 +20,15 @@
 # (expose)
 
 
+(load "base-items")
 (load "base-cli")
 
-(setf *config*
+(defun a(x) (b x))
+(defun b(x) (+ x 0))
 
-```lisp
-  (make-our 
+(setf *config* (make-our 
+
 :help "sbcl --noinform --script expose.lisp [OPTIONS]
-```
-
-
 (c) 2022, Tim Menzies, MIT license
 
 Lets have some fun."
@@ -41,6 +40,7 @@ Lets have some fun."
   (make-cli 'license "-l" "show license             " nil)
   (make-cli 'p       "-p" "euclidean coefficient    " 2)
   (make-cli 'seed    "-s" "random number seed       " 10019)
-  (make-cli 'todo    "-t" "start up action          " ""))))
+  (make-cli 'todo    "-t" "start up action          " "")
+)))
 
-
+(print  *config*)

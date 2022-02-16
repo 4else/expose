@@ -2,7 +2,7 @@
 <!-- tricks from https://simpleicons.org/  https://studio.tailorbrands.com -->
 <p align=center>
 <a href="/README.md#top">home</a> • 
-<a href="/docs/about.md">about</a> • 
+<a href="/docs/about.md#top">about</a> • 
 <a href="https://github.com/4else/expose/issues">issues</a>  
 </p><p align=center>
 <a href="/README.md#top"><img src="/etc/img/expose.png" width=250></a><br>
@@ -55,7 +55,7 @@
 
 (defmethod print-object ((o our) s)
   (format s "~a~%~%OPTIONS:~%" (our-help o))
-  (dolist (x (our-options o)) (print s x)))
+  (dolist (x (our-options o)) (print-object  (cdr x) s )))
 
 (defvar *config* (make-our))
 

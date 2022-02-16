@@ -2,7 +2,7 @@
 <!-- tricks from https://simpleicons.org/  https://studio.tailorbrands.com -->
 <p align=center>
 <a href="/README.md#top">home</a> • 
-<a href="/docs/about.md">about</a> • 
+<a href="/docs/about.md#top">about</a> • 
 <a href="https://github.com/4else/expose/issues">issues</a>  
 </p><p align=center>
 <a href="/README.md#top"><img src="/etc/img/expose.png" width=250></a><br>
@@ -26,6 +26,8 @@
 This book is about algorithms that seek
 "something else"; i.e. that find things
 that you should be seeing, but might be missing.
+
+
 It is reversed engineered from 20 years of data mining,
 hundreds of research papers, and the work of 20 Ph.D. students[^phd].
 
@@ -94,9 +96,6 @@ to find and util"something else"
 Suppose you wanted to teach responsible algorithm design to computer
 scientists and software engineers. What would tell them?
 
-There are many answers to that question but what I want so say is
-that it is not what we _are_ but what we _become_.  I want my tools
-to tell me where you are and where else you can be.
 
 Some say that a bird in the hand is worth two in bush. Really?
 There are 3 birds? And 67% of them live in something called a bush?
@@ -247,7 +246,7 @@ by seeking the "other voice":
   Congitive walk throughs
    Burnett team differences.[^hiding] 
 - _Outreach_: Do outreach beyond the current team and
-  staff the design team with
+staff the design team with
   persons from diverse backgrounds, empowered
   to make change in the design.
 - _Tinkering_: 
@@ -258,9 +257,9 @@ by seeking the "other voice":
   When tinkering with data mining, do not ask "what can we do
   with the data" but "what can the data do to us".
   Seek the 
-  new insights that demand a revision
-  to how you (or your organization or society) approaches
-  its goals (perhaps even changing those goals).
+new insights that demand a revision
+to how you (or your organization or society) approaches
+its goals (perhaps even changing those goals).
 
 [^hiding]: Caveat. Respect privacy. 
 
