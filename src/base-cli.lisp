@@ -24,7 +24,7 @@
 
 (defmethod print-object ((o our) s)
   (format s "~a~%~%OPTIONS:~%" (our-help o))
-  (dolist (x (our-options o)) (print s x)))
+  (dolist (x (our-options o)) (print-object  (cdr x) s )))
 
 (defvar *config* (make-our))
 

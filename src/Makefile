@@ -14,14 +14,14 @@ hi: ## start work (update all files)
 
 bye: mds ## stop work (save all files)
 	git add *;git commit -am save;git push;git status
-	
+
 MDS = ../docs/$(subst .lisp ,.md ../docs/,$(shell ls *.lisp))
 
 mds : $(subst .lisp,.md,$(MDS))
 
 ../docs/%.md: %.lisp Makefile ../etc/head.md ../etc/md.awk
 	@echo "# $@ ..."
-	@(cat ../etc/head.md; gawk -f ../etc/md.awk -v title="$<" $< ) > $@
+	@(cat ../etc/head.md; awk -f ../etc/md.awk -v title="$<" $< ) > $@
 	@git  add $@
 
 
@@ -42,16 +42,16 @@ f=relax.lisp
 	git add $@
 
 html: ## show html
-	gawk -f ../etc/lua2md.awk $f > ../docs/$f.md
+	awk -f ../etc/lua2md.awk $f > ../docs/$f.md
 	pandoc -s --toc --toc-depth=6 -V fontsize=9pt  -c lua.css --metadata title="$f" ../docs/$f.md -o ../docs/$f.html
 
 pandoc:
-	gawk -f ../etc/lua2md.awk $f > ../docs/$f.md
+	awk -f ../etc/lua2md.awk $f > ../docs/$f.md
 	pandoc ../docs/$f.md -V geometry:margin=1in  -V fontsize=9pt -V documentclass:scrbook -V fontfamily:times  \
 	--highlight=tango  -s --toc --toc-depth=6 --metadata title="$f" -o ../docs/$f.pdf
 
 header:
-	@read x; echo $$x | figlet -W -f straight | gawk '{print "--    "$$0}'
+	@read x; echo $$x | figlet -W -f straight | awk '{print "--    "$$0}'
 
 ok:
 	mkdir -p ../docs
