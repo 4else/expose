@@ -23,7 +23,7 @@
      (let ((,item (elt ,items ,i))) ,@body)))
 
 (defmacro doitems ((item items &optional out) &body body)
-  (let ((i (gensym))) 
+  (let ((i (gensym))) b
     `(dotimes (,i (length ,items) ,out)
        (declare (ignore ,i))
        (let ((,item (elt ,items ,i))) ,@body))))
